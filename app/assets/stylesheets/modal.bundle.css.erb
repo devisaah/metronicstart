@@ -1,0 +1,77 @@
+
+/*** Modal minimize ***/
+.modal .modal-header button {
+  margin-left: 8px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  float: right;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000000;
+  text-shadow: 0 1px 0 #ffffff;
+  opacity: 0.2;
+  filter: alpha(opacity=20);
+  display: inline-block;
+  background-repeat: no-repeat !important;
+  text-indent: -10000px;
+  outline: none;
+  width: 9px;
+  height: 9px;
+}
+.modal .modal-header button:hover {
+  opacity: 0.5;
+}
+.modal .modal-header button[data-dismiss="modal"] {
+  background-image: url(<%= asset_path "media/modals/remove-icon-small.png" %>);
+}
+.modal .modal-header button[data-minimize="modal"] {
+  background-image: url(<%= asset_path "media/modals/minus-icon-small.png" %>);
+}
+.modal.minimized .modal-header button[data-minimize="modal"] {
+  background-image: url(<%= asset_path "media/modals/clone-icon-small.png" %>) !important;
+}
+.minimized {
+  width: 250px;
+  height: 35px;
+  overflow: hidden !important;
+  padding: 0px !important;
+  margin: 0px;
+  float: left;
+  position: static !important;
+  border-radius: 6px 6px 0 0 !important;
+}
+.minimized .modal-content {
+  border-radius: 6px 6px 0 0 !important;
+}
+.minimized .modal-dialog, .minimized .modal-content {
+  height: 100%;
+  width: 100%;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.minimized .modal-header {
+  height: 100%;
+  width: 100%;
+  margin: 0px !important;
+  padding: 0px 5px !important;
+  border-bottom: none !important;
+}
+.minimized .modal-header button {
+  margin-top: 1rem !important;
+}
+.minimized .modal-title {
+  margin-top: 5px;
+  font-size: 15px !important;
+}
+.modals_minimized {
+  height: 35px;
+  bottom: 0px;
+  left: 1px;
+  position: fixed;
+  right: 1px;
+  z-index: 9999;
+}
+/*** End Modal minimize ***/

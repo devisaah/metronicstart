@@ -1,0 +1,32 @@
+<% modal_class ||= modal_class %>
+<% modal_id ||= modal_id %>
+<% modal_title ||= modal_title %>
+<% modal_body ||= modal_body %>
+<% modal_buttons ||= modal_buttons %>
+
+<div class="modal fade <%= modal_class %>" data-keyboard="false" data-backdrop="static" id="<%= modal_id %>" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pull-right">
+          <h1 class="modal-title">
+            <%= modal_title %>
+          </h1>
+        </div>
+        <div class="pull-left">
+          <button type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+          <button type="button" data-minimize="modal" aria-label="Minimize">&#45;</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <%= modal_body %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <div class="pull-left">
+          <%= modal_buttons %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

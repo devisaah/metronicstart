@@ -1,0 +1,10 @@
+<% if resource.errors.any? %>
+    <div class="alert alert-danger"> 
+        <button class="close" data-close="alert"></button>
+        <ul> 
+            <% resource.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li> 
+            <% end %>
+        </ul>
+    </div> 
+<% end %>

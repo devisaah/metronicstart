@@ -1,0 +1,36 @@
+<script>
+    function flashMessages(type,msg){
+        toastr.options.closeButton=true;
+        toastr.options.preventDuplicates=true;
+        toastr.options.escapeHtml=true;
+        
+        switch(type){
+            case"alert":
+                toastr.error(msg,"Erro!");
+                break;
+            case"error":
+                toastr.error(msg,"Erro!");
+                break;
+            case"notice":
+                toastr.success(msg,"Sucesso!");
+                break;
+            case"warning":
+                toastr.warning(msg,"Alerta!");
+                break;
+            case"info":
+                toastr.info(msg,"Informação!");
+                break;
+        }
+    } 
+    $(document).ready(function(){
+        var flash=<%=flash.to_json.html_safe%>;
+        $.each(flash,function(index,value){
+            flashMessages(value[0],value[1]);
+        })
+    });
+    $(document).ajaxComplete(function(event,request){
+        var msg=decodeURIComponent(escape(request.getResponseHeader('X-Message')));
+        var type=request.getResponseHeader('X-Message-Type');
+        flashMessages(type,msg);
+    });
+</script>

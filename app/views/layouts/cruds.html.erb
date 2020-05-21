@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-custom gutter-b example example-compact">
+            <div class="card-header">
+                <h3 class="card-title"><%= yield(:portlet_title) %></h3>
+                <div class="card-toolbar">
+                    <div class="example-tools justify-content-center">
+                        <%= yield(:portlet_actions) %>
+                    </div>
+                </div>
+            </div>
+            <%= yield %>
+        </div>
+    </div>
+</div>
+
+<%= parent_layout "application" %>

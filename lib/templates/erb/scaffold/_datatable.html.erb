@@ -1,0 +1,69 @@
+<% name_attribute = attributes.find{ |a| a.name == "name" } %>
+<% has_name = !!name_attribute %>
+
+
+<%%- model_class = <%= singular_table_name.titleize %> -%>
+
+<%% id ||= Time.now.to_i %>
+<%% remote ||= remote %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-<%= plural_table_name %>" id="table-<%= plural_table_name %>-<%%= id %>">
+		<thead>
+			<tr>
+			<th>#</th>
+			<% attributes.without(name_attribute).each do |attribute| -%>
+				<th><%%= model_class.human_attribute_name(:<%= attribute.human_name.downcase %>) %></th>
+			<% end -%>
+			<th><%%= t("helpers.actions") %></th>
+			</tr>
+		</thead>
+		<tbody data-link="row" class="rowlink tbody-<%= plural_table_name %>">
+		</tbody>
+	</table>
+</div>	
+
+
+<script type="text/javascript">
+initDatatable();
+$('#table-<%= plural_table_name %>-<%%= id %>').DataTable({
+	order: [[0, "desc"]],
+    serverSide: true,
+    ajax: {
+        url: "<%%= datatable_<%= plural_table_name %>_path(format: 'json', remote: remote) %> %>",
+        type: "POST",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+		}
+    },
+	columns: [
+        { "data": "index", "class": "col-md-1 coluna-index" },
+        <% attributes.without(name_attribute).each do |attribute| -%>
+            { "data": "<%= attribute.human_name.downcase.to_s %>" },
+		<% end %>
+		{ "data": "opcoes", "class": "rowlink-skip col-md-2 coluna-opcoes", "orderable": false }
+    ],
+	initComplete: function() {
+		$('<%%= link_to new_<%= singular_table_name %>_path, class: 'btn_new_datatable btn btn-success btn-sm', title: "Novo Usuário", remote: remote do %><i class="fa fa-plus"></i> <%%= t("helpers.links.new") %><%% end %>')
+			.appendTo(
+				$('<label></label>')
+					.appendTo(
+						this.closest('.dataTables_wrapper').find('.dataTables_filter')
+					)
+			);
+		var api = this.api();
+    	// Atrasa a consulta para evitar requisições a cada caracter digitado
+		$(".table-anos").closest("div.table-responsive").find('div.dataTables_filter input').off('keyup.DT input.DT');
+		var searchDelay = null;
+		$(".table-anos").closest("div.table-responsive").find('div.dataTables_filter input').on('keyup', function() {
+			var search = $(".table-anos").closest("div.table-responsive").find('div.dataTables_filter input').val();
+			clearTimeout(searchDelay);
+			searchDelay = setTimeout(function() {
+				if (search != null) {
+					api.search(search).draw();
+				}
+			}, 500);
+		});
+	}
+});
+</script>

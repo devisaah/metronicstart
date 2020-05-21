@@ -1,0 +1,19 @@
+<%%- model_class = <%= singular_table_name.titleize %> -%>
+
+<%% remote ||= remote %>
+
+<div class="accordion accordion-toggle-plus" id="accordion<%= singular_table_name.capitalize %>">
+  <div class="card">
+    <div class="card-header" id="heading<%= singular_table_name.capitalize %>">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapse<%= singular_table_name.capitalize %>" aria-expanded="false" aria-controls="collapse<%= singular_table_name.capitalize %>">
+        <%= plural_table_name.capitalize %>
+      </div>
+    </div>
+    <div id="collapse<%= singular_table_name.capitalize %>" class="collapse" aria-labelledby="heading<%= singular_table_name.capitalize %>" data-parent="#accordion<%= singular_table_name.capitalize %>" style="">
+      <div class="card-body">
+        <%%= render "<%= plural_table_name %>/datatable", locals: {remote: remote} %>%>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
