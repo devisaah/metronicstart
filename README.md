@@ -26,7 +26,7 @@ $ rails new dunnas -d mysql -m  ~/Downloads/metronicstart/template.rb
 
 ### Exemplo ao rodar scaffold: 
 ```sh
-rails g scaffold Servico nome:string descricao:text deleted_at:datetime:index ativo:boolean --no-test-framework 
+rails g scaffold Servico nome:string descricao:text deleted_at:datetime:index ativo:boolean --no-assets --no-helper --no-test-framework
 ```    
 
 `*** Não vem configurado o datatable, nem os arquivos de localização e nem os inflectors.`
