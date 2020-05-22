@@ -181,12 +181,7 @@ def add_sidekiq
     "require 'sidekiq/web'\n\n",
     before: "Rails.application.routes.draw do"
 
-  content = <<-RUBY
-    authenticate :user, lambda { |u| u.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
-    end
-  RUBY
-  insert_into_file "config/routes.rb", "#{content}\n\n", after: "Rails.application.routes.draw do\n"
+  route "mount Sidekiq::Web => '/sidekiq'"
 end
 
 def add_whenever
