@@ -135,18 +135,7 @@ function initMascaras(){
     $(".mascara-celular").inputmask({ mask: ["(99) 9999-9999", "(99) 99999-9999"], removeMaskOnSubmit: false });
     $(".mascara-rg").inputmask({ mask: "999.999.999", removeMaskOnSubmit: false, numericInput: true, placeholder: " " });
     $(".mascara-cep").inputmask({ mask: "99999-999", removeMaskOnSubmit: false });
-    $('.mascara-dinheiro').inputmask("currency", {
-        prefix: "R$ ",
-        groupSeparator: ".",
-        radixPoint: ",",
-        alias: "numeric",
-        placeholder: "0",
-        autoGroup: !0,
-        digits: 2,
-        digitsOptional: !1,
-        clearMaskOnLostFocus: !1,
-        autoUnmask: true
-    });
+    $('.mascara-dinheiro').inputmask("currency");
 }
 
 function initColorpicker(){
@@ -169,14 +158,7 @@ function initImagePopup() {
 }
 
 function initDatetimepicker() {
-    $('.kt_datetimepicker_4_4').datetimepicker({
-        todayHighlight: true,
-        autoclose: true,
-        pickerPosition: 'top-right',
-        format: 'dd/mm/yyyy hh:ii',
-        language: 'pt-br',
-    });
-    $('.kt_datetimepicker_4_3').datepicker({
+    $('.kt_datepicker').datepicker({
         rtl: KTUtil.isRTL(),
         todayHighlight: true,
         orientation: "bottom left",

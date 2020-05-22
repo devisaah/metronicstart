@@ -5,50 +5,53 @@
     <div class="card-body">
         <%%= error_messages(@<%= model_resource_name %>) %>
 
-        <% attributes.each do |attribute| -%>
-            <% if attribute.password_digest? -%>
-                <div class="col-lg-6 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <%%= form.label :password %>
-                        <%%= form.password_field :password, class: 'form-control' %>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <%%= form.label :password_confirmation %>
-                        <%%= form.password_field :password_confirmation, class: 'form-control' %>
-                    </div>
-                </div>
-            <% else %>
-                <% unless attribute.column_name == 'deleted_at' %>
+        <div class="row">
+            <% attributes.each do |attribute| -%>
+                <% if attribute.password_digest? -%>
                     <div class="col-lg-6 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <% if attribute.field_type == :check_box %>
-                                <div class="checkbox icheck-primary">
-                                    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
-                                    <%%= form.label :<%= attribute.column_name %> %>
-                                </div>
-                            <% else %>
-                                <%%= form.label :<%= attribute.column_name %> %>
-                                <% if attribute.reference? %>                             
-                                    <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :text, {prompt: true}, class: "select2_basico form-control", style: "width: 100%"  %>
-                                <% else %>
-                                    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
-                                <% end %>
-                            <% end %>
+                            <%%= form.label :password %>
+                            <%%= form.password_field :password, class: 'form-control' %>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <%%= form.label :password_confirmation %>
+                            <%%= form.password_field :password_confirmation, class: 'form-control' %>
+                        </div>
+                    </div>
+                <% else %>
+                    <% unless attribute.column_name == 'deleted_at' %>
+                        <div class="col-lg-6 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <% if attribute.field_type == :check_box %>
+                                    <div class="checkbox icheck-primary" style="padding-top: 24px;">
+                                        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                                        <%%= form.label :<%= attribute.column_name %> %>
+                                    </div>
+                                <% else %>
+                                    <%%= form.label :<%= attribute.column_name %> %>
+                                    <% if attribute.reference? %>                             
+                                        <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :text, {prompt: true}, class: "select2_basico form-control", style: "width: 100%"  %>
+                                    <% else %>
+                                        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
                 <% end %>
             <% end %>
-        <% end %>
+        </div>    
     </div>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-lg-6 col-sm-12 col-md-12">
-                <%%= render "<%= plural_table_name %>/form_actions" %>
-                <%%= link_to t("helpers.links.cancel"), <%= plural_table_name %>_path, :class => "btn btn-secondary" %>
+    <%% unles remote %>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-6 col-sm-12 col-md-12">
+                    <%%= render "<%= plural_table_name %>/form_actions" %>
+                    <%%= link_to t("helpers.links.cancel"), <%= plural_table_name %>_path, :class => "btn btn-secondary" %>
+                </div>
             </div>
         </div>
-    </div>
-    
+    <%% end %>    
 <%% end %>

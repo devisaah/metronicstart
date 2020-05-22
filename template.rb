@@ -113,6 +113,10 @@ def add_users
             /  # config.secret_key = .+/,
             "  config.secret_key = Rails.application.credentials.secret_key_base"
 
+  gsub_file "config/environments/production.rb",
+    /  config.assets.js_compressor = .+/,
+    "  config.assets.js_compressor = Uglifier.new(harmony: true)"
+
   template = """
     devise :database_authenticatable, :authentication_keys => [:login]
     attr_accessor :login

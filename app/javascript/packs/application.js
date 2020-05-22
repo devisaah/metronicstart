@@ -15,7 +15,10 @@ import '../../assets/javascripts/metronic/plugins.bundle'
 import '../../assets/javascripts/metronic/prismjs.bundle'
 import '../../assets/javascripts/metronic/scripts.bundle'
 import '../../assets/javascripts/modal.bundle'
+import '../../assets/javascripts/jquery.inputmask.bundle'
+import '../../assets/javascripts/jasny-bootstrap.min'
 import '../../assets/javascripts/custom'
+
 
 $(document).on("turbolinks:load", () => {
   $('[data-toggle="tooltip"]').tooltip()

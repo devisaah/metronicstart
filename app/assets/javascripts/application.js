@@ -17,5 +17,7 @@
 //= require metronic/prismjs.bundle
 //= require metronic/scripts.bundle
 //= require modal.bundle
+//= require jasny-bootstrap.min
 //= require custom
 // require_tree .
+
