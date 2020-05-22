@@ -104,11 +104,9 @@ def add_users
     gsub_file migration, /:ativo/, ":ativo, default: true"
   end
 
-  if Gem::Requirement.new("> 5.2").satisfied_by? rails_version
-    gsub_file "config/initializers/devise.rb",
-              /  # config.authentication_keys = [:email]+/,
+  gsub_file "config/initializers/devise.rb",
+              /  # config.authentication_keys = .+/,
               "    config.authentication_keys = [:login]"
-  end
 
   gsub_file "config/initializers/devise.rb",
             /  # config.secret_key = .+/,
@@ -137,7 +135,7 @@ def add_users
       end
     """.strip
 
-  inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "devise\n")
+  inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "class Usuario < ApplicationRecord\n\n")
 end
 
 def add_webpack
@@ -253,7 +251,7 @@ def add_ckeditor
 
   route "mount Ckeditor::Engine => '/ckeditor'"
 
-  insert_into_file "config/initializers/assets.rb", "\nRails.application.config.assets.precompile += %w[ckeditor/config.js]", after: "# Rails.application.config.assets.precompile += %w( admin.js admin.css )\n"
+  insert_into_file "config/initializers/assets.rb", "\nRails.application.config.assets.precompile += %w[ckeditor/config.js]\n\n\n\n", after: "# Rails.application.config.assets.precompile += %w( admin.js admin.css )\n"
 end
 
 # Configuração do social share button
