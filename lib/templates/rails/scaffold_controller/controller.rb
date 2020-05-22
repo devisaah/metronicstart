@@ -13,6 +13,8 @@ class <%= controller_class_name %>Controller < ApplicationController
     def index
       unless request.format.in?(['html', 'js'])
         @<%= plural_table_name %> = <%= orm_class.all(class_name) %>
+      else
+        @<%= plural_table_name %> = <%= orm_class.all(class_name) %>
       end
       respond_to do |format|
         format.html

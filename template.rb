@@ -242,7 +242,7 @@ end
 
 # Configuração do cocoon
 def add_cocoon 
-  inject_into_file("app/assets/javascripts/application.js", "//= require cocoon\n" , after: "//= require turbolinks\n")
+  inject_into_file("app/assets/javascripts/application.js", "//= require cocoon\n" , after: "//= require custom\n")
 end
 
 # Configuração do ckeditor
@@ -315,8 +315,9 @@ add_template_repository_to_source_path
 add_gems
 
 after_bundle do
-  add_audited
+  copy_templates
 
+  add_audited
   set_application_name
   stop_spring
   add_users
@@ -326,7 +327,6 @@ after_bundle do
   add_sidekiq
   add_friendly_id
 
-  copy_templates
   add_whenever
   add_sitemap
 

@@ -30,8 +30,8 @@
                                 </div>
                             <% else %>
                                 <%%= form.label :<%= attribute.column_name %> %>
-                                <% if attribute.reference? %>
-                                    <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :text, include_blank: true, class: "select2_basico form-control", style: "width: 100%"  %>
+                                <% if attribute.reference? %>                             
+                                    <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :text, {prompt: true}, class: "select2_basico form-control", style: "width: 100%"  %>
                                 <% else %>
                                     <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
                                 <% end %>
