@@ -219,13 +219,12 @@ end
 # Configuração das exceções
 def add_exception_notification 
   template = """
-      config.middleware.use ExceptionNotification::Rack,
-      email: {
-          deliver_with: :deliver_later
-          email_prefix: '[PREFIX] ',
-          sender_address: %{'notifier' <notifier@example.com>},
-          exception_recipients: %w{exceptions@example.com}
-      }
+    config.middleware.use ExceptionNotification::Rack,
+    :email => {
+        :email_prefix => '[DUNNAS TEMPLATE - Exceptions] ',
+        :sender_address => %{'DUNNAS TEMPLATE' <contato@dunnassoft.com.br>},
+        :exception_recipients => %w{Exceptions@dunnassoft.com.br}
+    }
   """.strip
 
   inject_into_file("config/environments/production.rb", "  " + template + "\n\n" , before: "config.active_record.dump_schema_after_migration = false\n")
