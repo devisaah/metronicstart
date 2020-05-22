@@ -66,6 +66,7 @@ def add_gems
   gem "figaro"
   gem 'rack-cors'
   gem 'sidekiq', '~> 6.0', '>= 6.0.3'
+  gem 'serviceworker-rails'
 end
 
 def set_application_name
@@ -87,57 +88,56 @@ def add_users
   # Configure Devise
   environment "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }",
               env: 'development'
- 
+
+  route "root to: 'home#index'"
 
 
   # Create Devise User
   generate :devise, "Usuario",
            "nome",
            "username",
-           "admin:boolean"
+           "ativo:boolean"
 
-  # Set admin default to true
+  # Set ativo default to true
   in_root do
     migration = Dir.glob("db/migrate/*").max_by{ |f| File.mtime(f) }
-    gsub_file migration, /:admin/, ":admin, default: true"
+    gsub_file migration, /:ativo/, ":ativo, default: true"
   end
 
   if Gem::Requirement.new("> 5.2").satisfied_by? rails_version
     gsub_file "config/initializers/devise.rb",
-      /  # config.secret_key = .+/,
-      "  config.secret_key = Rails.application.credentials.secret_key_base"
+              /  # config.authentication_keys = [:email]+/,
+              "    config.authentication_keys = [:login]"
   end
+
+  gsub_file "config/initializers/devise.rb",
+            /  # config.secret_key = .+/,
+            "  config.secret_key = Rails.application.credentials.secret_key_base"
 
   template = """
     devise :database_authenticatable, :authentication_keys => [:login]
     attr_accessor :login
-
-    def self.find_for_database_authentication warden_conditions 
-      conditions = warden_conditions.dup 
-      login = conditions.delete(:login) 
-      where(conditions).where(['lower(username) = :value OR lower(email) = :value OR lower(nome_completo) = :value', {value: login.strip.downcase}]).first
-    end 
-
+    def self.find_for_database_authentication warden_conditions
+      conditions = warden_conditions.dup
+      login = conditions.delete(:login)
+      where(conditions).where(['lower(username) = :value OR lower(email) = :value OR lower(nome) = :value', {value: login.strip.downcase}]).first
+    end
     def devise_mailer
       DeviseMailer
     end
-
     def active_for_authentication?
       super and self.ativo?
     end
-
     private
       def self.current=(usuario)
         Thread.current[:current_usuario] = usuario
       end
-
       def self.current
         Thread.current[:current_usuario]
       end
-
     """.strip
 
-    inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "class Usuario < ApplicationRecord\n")
+  inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "devise\n")
 end
 
 def add_webpack
@@ -244,7 +244,7 @@ end
 
 # Configuração do cocoon
 def add_cocoon 
-  inject_into_file("app/assets/javascripts/application.js", "//= require cocoon" , after: "//= require turbolinks\n")
+  inject_into_file("app/assets/javascripts/application.js", "//= require cocoon\n" , after: "//= require turbolinks\n")
 end
 
 # Configuração do ckeditor
@@ -307,18 +307,24 @@ def add_route_erros
   route "match '500', :to => 'errors#internal_server_error', :via => :all"
 end
 
+def add_serviceworker
+  generate "serviceworker:install"
+end
+
 # Main setup
 add_template_repository_to_source_path
 
 add_gems
 
 after_bundle do
+  add_audited
+
   set_application_name
   stop_spring
   add_users
   add_webpack
   add_javascript
- 
+
   add_sidekiq
   add_friendly_id
 
@@ -328,7 +334,6 @@ after_bundle do
 
   add_cancancan
   add_exception_notification
-  add_audited
   add_cocoon
   add_ckeditor
   add_social_button
@@ -338,10 +343,7 @@ after_bundle do
   add_fonts
   add_language
   add_route_erros
-
-  # Migrate
-  rails_command "db:create"
-  rails_command "db:migrate"
+  add_serviceworker
 
   # Commit everything to git
   git :init

@@ -14,3 +14,9 @@ O metronic start é um modelo do rails, então você executa como uma opção na
     
     # # # rodando na maquina local  # # #  
     rails new dunnas -d postgresql -m home/isaahmdantas/dunnas/metronicstart/template.rb
+   
+**Gerando um scaffold**   
+
+
+    rails g scaffold Servicos nome:string descricao:text deleted_at:datetime:index ativo:boolean --no-test-framework
+    

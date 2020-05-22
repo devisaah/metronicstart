@@ -1,0 +1,11 @@
+<div class="login-signin">
+  <div class="mb-20">
+    <h3>Inscrever-se</h3>
+    <div class="text-muted font-weight-bold">Digite seus dados para cadastrar sua conta:</div>
+  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {css: "form"}) do |f| %>
+    <%= devise_error_messages! %>
+    <%= render "form", f: f %>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>

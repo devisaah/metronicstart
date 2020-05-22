@@ -1,14 +1,17 @@
-@import "metronic/plugins.bundle";
+@import "metronic/login-2";
+
+@import "metronic/plugins.bundle.css.erb";
 @import "metronic/prismjs.bundle";
 @import "metronic/style.bundle";
 @import "metronic/header-base-light";
-@import "metronic/header-base-dark";
+//@import "metronic/header-base-dark";
 @import "metronic/header-menu-light";
-@import "metronic/header-menu-dark";
+//@import "metronic/header-menu-dark";
 @import "metronic/brand-light";
-@import "metronic/brand-dark";
+//@import "metronic/brand-dark";
 @import "metronic/aside-light";
-@import "metronic/aside-dark";
-@import "icheck.bundle"; 
+//@import "metronic/aside-dark";
+@import "icheck.bundle";
 @import "modal.bundle";
+
 @import "custom";

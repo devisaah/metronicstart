@@ -1,0 +1,14 @@
+<div class="login-signin">
+  <div class="mb-20">
+    <h3>Instruções de Confirmação</h3>
+    <div class="text-muted font-weight-bold">Digite seu e-mail para reenviar as instruções:</div>
+  </div>
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, css: "form"}) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="form-group mb-5">
+      <%= f.text_field :email, autofocus: true, autocomplete: "email", class: "form-control h-auto form-control-solid py-4 px-8", placeholder: "E-mail" %>
+    </div>
+    <%= f.submit "Reenviar", class: "btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4" %>
+  <% end %>
+  <%= render "devise/shared/links" %>
+</div>

@@ -23,13 +23,9 @@
     <div class="row">
         <div class="col-lg-4 col-md-12 col-sm-12">
             <%%= link_to t("helpers.links.back"), <%= plural_table_name %>_path, class: "btn btn-secondary" %>
-        </div>
-        <div class="col-lg-4 col-md-12 col-sm-12">
             <%%= render 'show_actions' , <%= singular_table_name %>: @<%= singular_table_name %> %>
-        </div>
-        <div class="col-lg-4 col-md-12 col-sm-12">
             <%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-success" do %>
-                <%%= t("helpers.links.new") %>
+              <%%= t("helpers.links.new") %>
             <%% end %>
         </div>
     </div>

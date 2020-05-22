@@ -1,0 +1,14 @@
+<div class="login-signin">
+  <div class="mb-20">
+    <h3>Alterar <%= resource_name.to_s.humanize %></h3>
+    <div class="text-muted font-weight-bold">Alterar os dados da sua conta:</div>
+  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, css: "form"}) do |f| %>
+    <%= devise_error_messages! %>
+    <%= render "form", f: f %>
+  <% end %>
+  <div class="mt-10">
+    <span class="opacity-70 mr-4"> Cancelar sua conta ?</span>
+    <%= button_to "Sim", registration_path(resource_name), class: "text-muted text-hover-primary font-weight-bold", data: { confirm: "Você tem certeza?" }, method: :delete %>
+  </div>
+</div>

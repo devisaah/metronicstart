@@ -1,7 +1,7 @@
 <%% remote = false if remote == nil %>
 <%% id ||= Time.now.to_i %> 
 
-<%%= form_with(model: <%= model_resource_name %>, local: true, remote: remote, html: {class: 'form', remote: remote}) do |form| %>
+<%%= form_with(model: @<%= model_resource_name %>, local: true, remote: remote, html: {class: 'form', remote: remote}) do |form| %>
     <div class="card-body">
         <%%= error_messages(@<%= model_resource_name %>) %>
 
@@ -22,8 +22,8 @@
             <% else %>
                 <div class="col-lg-6 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <%%= f.label :<%= attribute.column_name %> %>
-                        <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                        <%%= form.label :<%= attribute.column_name %> %>
+                        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
                     </div>
                 </div>
             <% end %>
@@ -34,8 +34,6 @@
         <div class="row">
             <div class="col-lg-6 col-sm-12 col-md-12">
                 <%%= render "<%= plural_table_name %>/form_actions" %>
-            </div>
-            <div class="col-lg-6 col-sm-12 col-md-12">
                 <%%= link_to t("helpers.links.cancel"), <%= plural_table_name %>_path, :class => "btn btn-secondary" %>
             </div>
         </div>

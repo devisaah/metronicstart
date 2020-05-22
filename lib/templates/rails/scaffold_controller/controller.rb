@@ -7,7 +7,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     layout 'cruds'
   
     before_action :set_<%= singular_table_name %>, only: [:show, :edit, :update, :destroy]
-    load_and_authorize_resource
+    # load_and_authorize_resource
   
     # GET <%= route_url %>
     def index
