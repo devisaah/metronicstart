@@ -1,23 +1,40 @@
 # Metronic Rails Template
 
-Um modelo de aplicativo rápido do Rails, o modelo em específico utiliza o template
- [metronic](https://keenthemes.com/metronic/ "metronic").
+O modelo gera um projeto rails no padrão de estilização do metronic e organização básica da Dunnas.
+
+# Começando: 
+`O metronicstart é um template do rails, então você executa como uma opção na criação de um novo proketo.`
+
+```sh
+$ rails new dunnas -d mysql -m https://raw.githubusercontent.com/devisaah/metronicstart/master/template.rb
+```
+`Ou se você realizar o clone do projeto poderá executar localmente.`
+
+```sh
+$ rails new dunnas -d mysql -m  ~/Downloads/metronicstart/template.rb
+```
+
+### Observações: 
+- Utiliza o metronic v7.0.1
+- Assets padrões do layout 'demo01'
+- Já vem configurado autenticação básica:   
+        - Model (Usuario: Nome, username, email, password)       
+- Ao gerar o scaffold ele já vem com os controllers e as views no padrão que normalmente usamos na dunnas
+- Ao criar o scaffold sempre colocar o atributo deleted_at:datetime:index pois já esta configurado a gem 'paranoid' (que é utilizado para ocultar o objeto ao remover sem que remova do banco)
+- Os templates que a geração que o scaffold se baseia fica dentro da pasta /lib/templates ...
 
 
-**Começando**
+### Exemplo ao rodar scaffold: 
+```sh
+rails g scaffold Servico nome:string descricao:text deleted_at:datetime:index ativo:boolean --no-test-framework 
+```    
 
-O metronic start é um modelo do rails, então você executa como uma opção na criação de um novo aplicativo.
+`*** Não vem configurado o datatable, nem os arquivos de localização e nem os inflectors.`
 
+### Atualizações
 
-    rails new dunnas -d postgresql -m https://raw.githubusercontent.com/devisaah/metronicstart/master/template.rb
-    rails new dunnas -d mysql -m https://raw.githubusercontent.com/devisaah/metronicstart/master/template.rb
-    
-    # # # rodando na maquina local  # # #  
-    rails new dunnas -d postgresql -m home/isaahmdantas/dunnas/metronicstart/template.rb
-    rails new dunnas -d mysql -m home/isaahmdantas/dunnas/metronicstart/template.rb
-   
-**Gerando um scaffold**   
-
-
-    rails g scaffold Servico nome:string descricao:text deleted_at:datetime:index ativo:boolean --no-test-framework
-    
+#### 20-05-2010 
+* Versão original do Metronic Start
+* Versão do Metronic v7.0.1
+* Layout demo01
+* Versão do Rails suportadas 5.2 e 6.0
