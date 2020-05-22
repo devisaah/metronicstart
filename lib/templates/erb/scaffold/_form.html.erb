@@ -24,11 +24,9 @@
                     <div class="col-lg-6 col-sm-12 col-md-12">
                         <div class="form-group">
                             <% if attribute.field_type == :check_box %>
-                                <div class="checkbox-inline">
-                                    <label class="checkbox" for="<%= attribute.column_name %>">
-                                        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
-                                        <span></span>
-                                    </label>
+                                <div class="checkbox icheck-primary">
+                                    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                                    <%%= form.label :<%= attribute.column_name %> %>
                                 </div>
                             <% else %>
                                 <%%= form.label :<%= attribute.column_name %> %>
