@@ -6,9 +6,9 @@
   <div class="col-md-12">
     <dl class="dl-horizontal">
       <%- attributes.each do |attribute| -%>
-        <% unless  attribute.human_name.downcase == 'deleted at' %>
-          <dt><strong><%%= model_class.human_attribute_name(:<%= attribute.human_name.downcase %>) %> :</strong></dt>
-          <dd><%%= resource.try(:<%= attribute.human_name.downcase %>) %></dd>
+        <% unless  attribute.name.downcase == 'deleted_at' %>
+          <dt><strong><%%= model_class.human_attribute_name(:<%= attribute.name.downcase %>) %> :</strong></dt>
+          <dd><%%= resource.try(:<%= attribute.name.downcase %>) %></dd>
         <% end %>
       <% end %>
     </dl>

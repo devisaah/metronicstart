@@ -21,8 +21,8 @@
 			<tr>
 			<th>#</th>
 			<% attributes.without(name_attribute).each do |attribute| -%>
-				<% unless attribute.human_name.downcase == 'deleted at' %>
-					<th><%%= model_class.human_attribute_name(:<%= attribute.human_name.downcase %>) %></th>
+				<% unless attribute.name.downcase == 'deleted_at' %>
+					<th><%%= model_class.human_attribute_name(:<%= attribute.name.downcase %>) %></th>
 				<% end %>
 			<% end -%>
 			<th><%%= t("helpers.actions") %></th>
@@ -37,7 +37,7 @@
 					<% end %>
 
 					<% attributes.without(name_attribute).each do |attribute| -%>
-						<% unless attribute.name.downcase == 'deleted at' %>
+						<% unless attribute.name.downcase == 'deleted_at' %>
 							<td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
 						<% end %>
 					<% end -%>
