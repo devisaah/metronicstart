@@ -96,7 +96,8 @@ def add_users
   generate :devise, "Usuario",
            "nome",
            "username",
-           "ativo:boolean"
+           "ativo:boolean",
+           "deleted_at:datetime:index"
 
   # Set ativo default to true
   in_root do
