@@ -11,7 +11,7 @@
 <%% content_for :portlet_actions do %>
 	<%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-success font-weight-bolder", remote: remote do %>
 		<i class="la la-plus"></i>  <%%= t('helpers.titles.new', :model => model_class.model_name.human.titleize) %>
-	<% end %>
+	<%% end %>
 <%% end %>
 
 
