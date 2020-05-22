@@ -20,16 +20,30 @@
                     </div>
                 </div>
             <% else %>
-                <div class="col-lg-6 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <%%= form.label :<%= attribute.column_name %> %>
-                        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                <% unless attribute.column_name == 'deleted_at' %>
+                    <div class="col-lg-6 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <% if attribute.field_type == :check_box %>
+                                <div class="checkbox-inline">
+                                    <label class="checkbox" for="<%= attribute.column_name %>">
+                                        <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                                        <span></span>
+                                    </label>
+                                </div>
+                            <% else %>
+                                <%%= form.label :<%= attribute.column_name %> %>
+                                <% if attribute.reference? %>
+                                    <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :text, include_blank: true, class: "select2_basico form-control", style: "width: 100%"  %>
+                                <% else %>
+                                    <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
+                                <% end %>
+                            <% end %>
+                        </div>
                     </div>
-                </div>
+                <% end %>
             <% end %>
         <% end %>
     </div>
-
     <div class="card-footer">
         <div class="row">
             <div class="col-lg-6 col-sm-12 col-md-12">

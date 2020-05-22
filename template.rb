@@ -135,7 +135,7 @@ def add_users
       end
     """.strip
 
-  inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "class Usuario < ApplicationRecord\n\n")
+  inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "class Usuario < ApplicationRecord\n")
 end
 
 def add_webpack
