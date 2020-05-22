@@ -53,7 +53,7 @@
 
 								<%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>),
 									method: :delete,
-									data: { confirm: t('helpers.links.confirm_destroy', :model => ano.model_name.human), toggle: "tooltip", placement: "top" },
+									data: { confirm: t('helpers.links.confirm_destroy', :model => model_class.model_name.human), toggle: "tooltip", placement: "top" },
 									:remote =>  remote,
 									class: "btn btn-danger btn-icon btn-sm", title: "Remover" do %>
 									<i class='la la-trash'></i>
