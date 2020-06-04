@@ -1,3 +1,7 @@
+<% name_attribute = attributes.find{ |a| a.name == "name" } %>
+<% has_name = !!name_attribute %>
+
+
 <%%- model_class = <%= singular_table_name.titleize %> -%>
 
 <%% remote ||= remote %>
