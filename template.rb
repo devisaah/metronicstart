@@ -306,6 +306,8 @@ end
 
 def add_serviceworker
   generate "serviceworker:install"
+  generate "protokoll:migration"
+
 end
 
 # Main setup
