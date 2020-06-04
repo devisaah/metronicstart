@@ -86,13 +86,13 @@ class <%= controller_class_name %>Controller < ApplicationController
   
     def datatable
       respond_to do |format|
-        format.json { render json: <%= singular_table_name.titleize %>.Datatable.new(view_context) }
+        format.json { render json: <%= controller_class_name %>Datatable.new(view_context) }
       end
     end
   
     def search
       respond_to do |format|
-        format.json { render json: <%= singular_table_name.titleize %>.search(params[:search]) }
+        format.json { render json: <%= orm_class.search(class_name, "params[:search]") %>  }
       end
     end
   
