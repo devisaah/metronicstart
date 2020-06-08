@@ -1,7 +1,7 @@
 <%% remote = false if remote == nil %>
 <%% id ||= Time.now.to_i %> 
 
-<%%= form_with(model: @<%= model_resource_name %>, local: true, remote: remote, html: {class: 'form', remote: remote}) do |form| %>
+<%= form_for( @<%= model_resource_name %>, remote: remote, class: "form") do |form| %>
     <div class="card-body">
         <%%= error_messages(@<%= model_resource_name %>) %>
 
@@ -32,7 +32,7 @@
                                 <% else %>
                                     <%%= form.label :<%= attribute.column_name %> %>
                                     <% if attribute.reference? %>                             
-                                        <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :text, {prompt: true}, class: "select2_basico form-control", style: "width: 100%"  %>
+                                        <%%= form.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :descricao, {prompt: true}, class: "select2_basico form-control", style: "width: 100%"  %>
                                     <% else %>
                                         <%%= form.<%= attribute.field_type %> :<%= attribute.column_name %>, class: "form-control" %>
                                     <% end %>
