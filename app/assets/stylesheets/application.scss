@@ -1,20 +1,14 @@
 @import "metronic/login-2";
-
 @import "metronic/plugins.bundle";
 @import "metronic/prismjs.bundle";
 @import "metronic/style.bundle";
 @import "metronic/header-base-light";
-//@import "metronic/header-base-dark";
 @import "metronic/header-menu-light";
-//@import "metronic/header-menu-dark";
 @import "metronic/brand-light";
-//@import "metronic/brand-dark";
 @import "metronic/aside-light";
-//@import "metronic/aside-dark";
 @import "icheck.bundle";
 @import "modal.bundle";
-
-@import "custom";
-
-@import "jasny-bootstrap.min";
+@import "magnific-popup/magnific-popup.min";
+@import "metronic/datatables/datatables.bundle";
 @import "dropZone";
+@import "custom";

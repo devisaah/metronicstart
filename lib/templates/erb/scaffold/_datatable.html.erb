@@ -66,3 +66,9 @@
 		</tbody>
 	</table>
 </div>
+<script>
+	initDatatable();
+	$("table-<%= plural_table_name %>-<%%= id %>").DataTable({
+		order: [[0, "desc"]]
+	});
+</script>

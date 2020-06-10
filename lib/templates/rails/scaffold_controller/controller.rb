@@ -92,7 +92,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   
     def search
       respond_to do |format|
-        format.json { render json: <%= orm_class.search(class_name, "params[:search]") %>  }
+        format.json { render json: <%= singular_table_name %>.search(params[:search])  }
       end
     end
   
