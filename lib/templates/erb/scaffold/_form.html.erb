@@ -1,7 +1,7 @@
 <%% remote = false if remote == nil %>
 <%% id ||= Time.now.to_i %> 
 
-<%= form_for( @<%= model_resource_name %>, remote: remote, class: "form") do |form| %>
+<%%= form_for(@<%= model_resource_name %>, remote: remote, class: "form") do |form| %%>
     <div class="card-body">
         <%%= error_messages(@<%= model_resource_name %>) %>
 
