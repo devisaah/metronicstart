@@ -11,7 +11,7 @@
     </div>
     <div id="collapse<%= singular_table_name.titleize %>" class="collapse" aria-labelledby="heading<%= singular_table_name.titleize %>" data-parent="#accordion<%= singular_table_name.titleize %>" style="">
       <div class="card-body">
-        <%%= render "admin/<%= plural_table_name %>/datatable", locals: {remote: remote} %>
+        <%%= render partial: "<%= plural_table_name %>/datatable", locals: {remote: remote} %>
       </div>
     </div>
   </div>
