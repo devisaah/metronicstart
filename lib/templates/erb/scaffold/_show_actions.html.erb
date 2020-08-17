@@ -2,11 +2,11 @@
 
 <%% remote ||= remote %>
 
-<%%= link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), :class => 'btn btn-warning', :remote => remote do  %>
+<%%= link_to edit_admin_<%= singular_table_name %>_path(<%= singular_table_name %>), :class => 'btn btn-warning', :remote => remote do  %>
 	<%%= t("helpers.links.edit") %>
 <%% end %>
 
-<%%= link_to <%= singular_table_name %>_path(<%= singular_table_name %>),
+<%%= link_to admin_<%= singular_table_name %>_path(<%= singular_table_name %>),
     :remote => remote,
 	:method => 'delete',
 	:data => { :confirm => t("helpers.links.confirm_destroy",

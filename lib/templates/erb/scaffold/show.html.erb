@@ -1,10 +1,10 @@
 <%%- model_class = <%= singular_table_name.titleize %> -%>
 
-<%% content_for :page_title, model_class.model_name.human(count: 2).titleize %>
+<%% content_for :page_title, t('helpers.titles.show', :model => model_class.model_name.human.titleize %>
 
 <%% content_for :breadcrumb do %>
     <li class="breadcrumb-item">
-        <%%= link_to model_class.model_name.human(count: 2).titleize, <%= plural_table_name %>_path, class: "text-muted" %>
+        <%%= link_to model_class.model_name.human(count: 2).titleize, admin_<%= plural_table_name %>_path, class: "text-muted" %>
     </li>
     <li class="breadcrumb-item">
         <%%= t('helpers.links.show') %>
@@ -21,10 +21,10 @@
 
 <div class="card-footer">
     <div class="row">
-        <div class="col-lg-4 col-md-12 col-sm-12">
-            <%%= link_to t("helpers.links.back"), <%= plural_table_name %>_path, class: "btn btn-secondary" %>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <%%= link_to t("helpers.links.back"), admin_<%= plural_table_name %>_path, class: "btn btn-secondary" %>
             <%%= render 'show_actions' , <%= singular_table_name %>: @<%= singular_table_name %> %>
-            <%%= link_to new_<%= singular_table_name %>_path, class: "btn btn-success" do %>
+            <%%= link_to new_admin_<%= singular_table_name %>_path, class: "btn btn-success" do %>
               <%%= t("helpers.links.new") %>
             <%% end %>
         </div>
