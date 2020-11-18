@@ -65,6 +65,7 @@ def add_gems
   gem 'protokoll',  :git => 'https://github.com/claudiotrindade/protokoll.git'
   gem "figaro"
   gem 'rack-cors'
+  gem 'sidekiq', '~> 6.0', '>= 6.0.3'
   gem 'serviceworker-rails'
   gem 'seed_migration'
 end
@@ -141,29 +142,6 @@ def add_users
     """.strip
 
   inject_into_file("app/models/usuario.rb", "  " + template + "\n\n\n" , after: "class Usuario < ApplicationRecord\n")
-end
-
-def add_webpack
-  if rails_6?
-    rails_command 'webpacker:install'
-  end
-end
-
-def add_javascript
-
-  if rails_6?
-    run "yarn add expose-loader local-time"
-    content = <<-JS
-    const webpack = require('webpack')
-    environment.plugins.append('Provide', new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      Rails: '@rails/ujs'
-    }))
-      JS
-
-    insert_into_file 'config/webpack/environment.js', content + "\n", before: "module.exports = environment"
-  end
 end
 
 def copy_templates
@@ -296,16 +274,11 @@ end
 def add_serviceworker
   generate "serviceworker:install"
   generate "protokoll:migration"
-
+  generate "seed_migration:install:migrations"
 end
 
 # Main setup
 add_template_repository_to_source_path
-
-def add_seed_migration
-  generate "seed_migration:install:migrations"
-
-end
 
 add_gems
 
@@ -336,7 +309,6 @@ after_bundle do
   add_language
   add_route_erros
   add_serviceworker
-  add_seed_migration
 
   # Commit everything to git
   git :init
@@ -348,5 +320,4 @@ after_bundle do
   say
   say "To get started with your new app:", :green
   say "cd #{app_name} - Switch to your new app's directory."
-  say "Run Rails"
 end
