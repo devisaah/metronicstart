@@ -9,7 +9,7 @@
 <%% link_to_new ||= new_admin_<%= singular_table_name %>_url() %>
 
 <div class="table-responsive">
-	<table class="table table-bordered table-hover table-<%= plural_table_name %>" id="table-<%= plural_table_name %>-<%%%= id %>">
+	<table class="table table-bordered table-hover table-<%= plural_table_name %>" id="table-<%= plural_table_name %>-<%%= id %>">
 		<thead>
 			<tr>
 				<th>#</th>		
@@ -18,7 +18,7 @@
 						<th><%%= model_class.human_attribute_name(:<%= attribute.name.downcase %>) %></th>
 					<% end %>
 				<% end -%>
-				<th><%= t("helpers.actions") %></th>
+				<th><%%= t("helpers.actions") %></th>
 			</tr>
 		</thead>
 		<tbody data-link="row" class="rowlink tbody-<%= plural_table_name %>">
@@ -27,7 +27,7 @@
 </div>
 <script type="text/javascript">
     initDatatable();
-    var table_<%= plural_table_name %>_<%%%= id %> = $('#table-<%= plural_table_name %>-<%%= id %>').DataTable({
+    var table_<%= plural_table_name %>_<%%= id %> = $('#table-<%= plural_table_name %>-<%%= id %>').DataTable({
         stateSave: true,
         order: [[0, "desc"]],
         serverSide: true,
@@ -49,7 +49,7 @@
             { "data": "opcoes", "class": "rowlink-skip coluna-opcoes", "orderable": false }
         ],
         initComplete: function() {
-            $('<%%= link_to link_to_new, class: "mr-4 btn btn-success font-weight-bolder", remote: remote do %><i class="la la-plus"></i> <%= t("helpers.links.new") %><%% end %>')
+            $('<%%= link_to link_to_new, class: "mr-4 btn btn-success font-weight-bolder", remote: remote do %><i class="la la-plus"></i> <%%= t("helpers.links.new") %><%% end %>')
                 .appendTo(
                     $('<label class="btn-new"></label>')
                         .prependTo(
