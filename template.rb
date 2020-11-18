@@ -171,7 +171,6 @@ def copy_templates
 
   copy_file "Procfile"
   copy_file "Procfile.dev"
-  copy_file ".foreman"
 
   directory "app", force: true
   directory "config", force: true
