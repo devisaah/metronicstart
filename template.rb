@@ -65,8 +65,8 @@ def add_gems
   gem 'protokoll',  :git => 'https://github.com/claudiotrindade/protokoll.git'
   gem "figaro"
   gem 'rack-cors'
-  gem 'sidekiq', '~> 6.0', '>= 6.0.3'
   gem 'serviceworker-rails'
+  gem 'seed_migration'
 end
 
 def set_application_name
@@ -144,8 +144,8 @@ def add_users
 end
 
 def add_webpack
-  if rails_6? 
-    rails_command 'webpacker:install' 
+  if rails_6?
+    rails_command 'webpacker:install'
   end
 end
 
@@ -161,7 +161,7 @@ def add_javascript
       Rails: '@rails/ujs'
     }))
       JS
-    
+
     insert_into_file 'config/webpack/environment.js', content + "\n", before: "module.exports = environment"
   end
 end
@@ -176,16 +176,6 @@ def copy_templates
   directory "app", force: true
   directory "config", force: true
   directory "lib", force: true
-end
-
-def add_sidekiq
-  environment "config.active_job.queue_adapter = :sidekiq"
-
-  insert_into_file "config/routes.rb",
-    "require 'sidekiq/web'\n\n",
-    before: "Rails.application.routes.draw do"
-
-  route "mount Sidekiq::Web => '/sidekiq'"
 end
 
 def add_whenever
@@ -216,12 +206,12 @@ def add_sitemap
 end
 
 # Configuração do cancancan
-def add_cancancan 
+def add_cancancan
   generate "cancan:ability"
 end
 
 # Configuração das exceções
-def add_exception_notification 
+def add_exception_notification
   template = """
     config.middleware.use ExceptionNotification::Rack,
     :email => {
@@ -235,17 +225,17 @@ def add_exception_notification
 end
 
 # Configuração da auditoria
-def add_audited 
+def add_audited
   generate "audited:install"
 end
 
 # Configuração do cocoon
-def add_cocoon 
+def add_cocoon
   inject_into_file("app/assets/javascripts/application.js", "//= require cocoon\n" , after: "//= require custom\n")
 end
 
 # Configuração do ckeditor
-def add_ckeditor 
+def add_ckeditor
   generate "ckeditor:install --orm=active_record --backend=carrierwave"
 
   route "mount Ckeditor::Engine => '/ckeditor'"
@@ -254,17 +244,17 @@ def add_ckeditor
 end
 
 # Configuração do social share button
-def add_social_button 
+def add_social_button
   generate "social_share_button:install"
 end
 
 # Configuração do figaro
-def add_figaro 
+def add_figaro
   run "bundle exec figaro install"
 end
 
-# Configuração do cors 
-def add_cors 
+# Configuração do cors
+def add_cors
   template = """
       config.middleware.insert_before 0, Rack::Cors do
           allow do
@@ -272,32 +262,32 @@ def add_cors
               resource '*', headers: :any, methods: [:get, :post, :options]
           end
       end
-  """.strip 
+  """.strip
 
   insert_into_file "config/application.rb", "  " + template + "\n\n", after: "class Application < Rails::Application\n"
 end
 
-# configuração de fonts 
-def add_fonts 
+# configuração de fonts
+def add_fonts
   inject_into_file("config/initializers/assets.rb", "Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/\n" , after: "# Rails.application.config.assets.precompile += %w( admin.js admin.css )\n")
 end
 
 # configuração da linguagem do app
-def add_language 
+def add_language
   template = """
       config.time_zone = ActiveSupport::TimeZone.new('America/Recife')
       config.i18n.default_locale = :'pt-BR'
-      
+
       # paginas de erros
       config.exceptions_app = self.routes
-  """.strip 
+  """.strip
 
   insert_into_file "config/application.rb", "  " + template + "\n\n", after: "class Application < Rails::Application\n"
 end
 
 
-# configuração das rotas de erro 
-def add_route_erros 
+# configuração das rotas de erro
+def add_route_erros
   route "get 'wp-login.php', to: redirect('/404')"
   route "match '404', :to => 'errors#not_found', :via => :all"
   route "match '422', :to => 'errors#unacceptable', :via => :all"
@@ -313,6 +303,11 @@ end
 # Main setup
 add_template_repository_to_source_path
 
+def add_seed_migration
+  generate "seed_migration:install:migrations"
+
+end
+
 add_gems
 
 after_bundle do
@@ -325,7 +320,6 @@ after_bundle do
   add_webpack
   add_javascript
 
-  add_sidekiq
   add_friendly_id
 
   add_whenever
@@ -343,6 +337,7 @@ after_bundle do
   add_language
   add_route_erros
   add_serviceworker
+  add_seed_migration
 
   # Commit everything to git
   git :init
@@ -354,5 +349,5 @@ after_bundle do
   say
   say "To get started with your new app:", :green
   say "cd #{app_name} - Switch to your new app's directory."
-  say "foreman start - Run Rails, sidekiq, and webpack-dev-server."
+  say "Run Rails"
 end

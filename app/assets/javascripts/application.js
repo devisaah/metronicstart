@@ -17,7 +17,6 @@
 //= require metronic/prismjs.bundle
 //= require metronic/scripts.bundle
 //= require modal.bundle
-//= require jasny-bootstrap.min
 //= require dynamic_selectable
 //= require jquery.inputmask.bundle.min
 //= require magnific-popup/jquery.magnific-popup.min

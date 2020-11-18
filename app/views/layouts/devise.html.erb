@@ -18,14 +18,7 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
-  <% rails_version ||= Gem::Version.new(Rails::VERSION::STRING) %>
-  <% rails_6 = Gem::Requirement.new(">= 6.0.0.beta1", "< 7").satisfied_by? rails_version %>
-
-  <% if rails_6 %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <% else %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <% end %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">

@@ -131,6 +131,9 @@ function initSelect2(){
     $(".select2_basico").select2(templateSelect2(null, "Selecione", false, true));
 }
 
+
+
+
 // init campo obrigatorio
 function initCampoObrigatorio(){
     var originalAddClassMethod = jQuery.fn.addClass;
@@ -166,6 +169,9 @@ function initMascaras(){
     $(".mascara-celular").inputmask({ mask: ["(99) 9999-9999", "(99) 99999-9999"], removeMaskOnSubmit: false });
     $(".mascara-rg").inputmask({ mask: "999.999.999", removeMaskOnSubmit: false, numericInput: true, placeholder: " " });
     $(".mascara-cep").inputmask({ mask: "99999-999", removeMaskOnSubmit: false });
+    $(".mascara-peso").inputmask({mask: "99.99 KG", removeMaskOnSubmit: false});
+    $(".mascara-altura").inputmask({mask: "9.99 M", removeMaskOnSubmit: false});
+    $(".mascara-minuto").inputmask({mask: "99[9] MINUTOS", greedy: false, removeMaskOnSubmit: false});
     $('.mascara-dinheiro').inputmask("currency");
 }
 
@@ -189,15 +195,20 @@ function initImagePopup() {
 }
 
 function initDatetimepicker() {
-    $('.kt_datepicker').datepicker({
-        rtl: KTUtil.isRTL(),
-        todayHighlight: true,
-        orientation: "bottom left",
-        templates: arrows = {
-            leftArrow: '<i class="la la-angle-right"></i>',
-            rightArrow: '<i class="la la-angle-left"></i>'
-        },
-        format: 'dd/mm/yyyy',
-        language: 'pt-br'
+    // Demo 1
+    $('.kt_datetimepicker_4').datetimepicker({
+        locale: 'pt-br',
+        format: 'L'
+    });
+
+    // Demo 5
+    $('.kt_datetimepicker_5').datetimepicker({
+        locale: 'pt-br',
+        icons: {
+            time: "far fa-clock",
+            date: "far fa-calendar-alt",
+            up: "fas fa-angle-up",
+            down: "fas fa-angle-down"
+        }
     });
 }
