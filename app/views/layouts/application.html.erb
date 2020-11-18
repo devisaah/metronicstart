@@ -25,5 +25,107 @@
     <%= render 'shared/notificacao' %>
     <%= render 'shared/header-mobile' %>
     <%= render 'shared/main' %>
+
+     <!-- begin:: Loader -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section-full"></div>
+    </div>
+    <!-- end:: Loader -->
+
+    <script type="text/javascript">
+        function stopLoader(event) {
+            var timeStamp = event.timeStamp;
+            $('#loader-wrapper').data('target-timestamp', timeStamp);
+            setTimeout(function(){
+                if($('#loader-wrapper').is(":visible") && timeStamp == $('#loader-wrapper').data('target-timestamp')) {
+                    $('#loader-wrapper').hide();
+                    toastr["warning"]("O sistema estar apresentando lentidão excessiva. Aguarde, ou informe ao suporte!");
+                }
+            }, 3000, timeStamp);
+        };
+
+        function init() {
+            $("a[href*='/'][target!='_blank'], input[type='submit'], button[type='submit'], .btn-loading").not('.btn-not-loading').on('click', function(){
+                if (window.event.ctrlKey) {} else {
+                    $('#loader-wrapper').show(stopLoader(event));
+                }
+            });
+            $("a[data-method='delete']").not('.btn-not-loading').on('confirm:complete', function(ev) {
+                if (!ev.result) {
+                    setTimeout(function(){
+                        $('#loader-wrapper').hide();
+                    }, 2000);
+                }
+            });
+        };
+
+        $(document).on('turbolinks:before-cache', function(){
+            $('#loader-wrapper').show(stopLoader(event));
+        });
+
+        $(document).ajaxStop(function(){
+            $('#loader-wrapper').hide();
+            init();
+        }).ajaxError(function(){
+            $('#loader-wrapper').hide();
+            init();
+        });
+
+        $(document).ready(function() {
+            $('#loader-wrapper').hide();
+        });
+
+        $(document).on('turbolinks:load', function(){
+            $('#loader-wrapper').hide();
+
+            // Init Desktop & Mobile Headers
+            KTLayoutHeader.init('kt_header', 'kt_header_mobile');
+
+            // Init Header Menu
+            KTLayoutHeaderMenu.init('kt_header_menu', 'kt_header_menu_wrapper');
+
+            // Init Header Topbar For Mobile Mode
+            KTLayoutHeaderTopbar.init('kt_header_mobile_topbar_toggle');
+
+            // Init Brand Panel For Logo
+            KTLayoutBrand.init('kt_brand');
+
+            // Init Aside
+            KTLayoutAside.init('kt_aside');
+
+            // Init Aside Menu Toggle
+            KTLayoutAsideToggle.init('kt_aside_toggle');
+
+            // Init Aside Menu
+            KTLayoutAsideMenu.init('kt_aside_menu');
+
+            // Init Subheader
+            KTLayoutSubheader.init('kt_subheader');
+
+            // Init Content
+            KTLayoutContent.init('kt_content');
+
+            // Init Footer
+            KTLayoutFooter.init('kt_footer');
+
+            // Init KTLayoutQuickUser
+            KTLayoutQuickUser.init('kt_quick_user');
+
+            // Init Quick Offcanvas Panel
+            KTLayoutQuickPanel.init('kt_quick_panel');
+        });
+
+        $(document).on('show.bs.modal', '.modal', function () {
+            $('#loader-wrapper').hide();
+            init();
+        });
+
+        $(document).on('hidden.bs.modal', '.modal', function () {
+            $('#loader-wrapper').hide();
+        });
+
+        init();
+    </script>
   </body>
 </html>
