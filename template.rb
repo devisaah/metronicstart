@@ -289,7 +289,7 @@ after_bundle do
   set_application_name
   stop_spring
   add_users
-  add_webpack
+  #add_webpack
   add_javascript
 
   add_friendly_id
