@@ -173,10 +173,6 @@ def stop_spring
   run "spring stop"
 end
 
-def add_sitemap
-  rails_command "sitemap:install"
-end
-
 # Configuração do sitemap
 def add_sitemap
   rails_command "sitemap:install"
@@ -290,7 +286,7 @@ after_bundle do
   stop_spring
   add_users
   #add_webpack
-  add_javascript
+  #add_javascript
 
   add_friendly_id
 
