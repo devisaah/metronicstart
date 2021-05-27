@@ -37,7 +37,7 @@ module Erb # :nodoc:
       end
 
       def available_views_js
-        %w(create destroy show new edit update)
+        %w(create destroy show new edit update ativar desativar)
       end
 
     end

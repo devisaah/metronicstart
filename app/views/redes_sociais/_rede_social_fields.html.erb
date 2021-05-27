@@ -1,0 +1,32 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :tipo, class: "control-label" %>
+        <%= f.select :tipo, enum_options_for_select(RedeSocial, :tipo), {prompt: "Selecione a Rede Social"}, class: "form-control select2_basico" %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :url, class: "control-label" %>
+        <%= f.text_field :url, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-lg-2 col-sm-12 col-md-12">
+      <div class="form-group">
+        <div class="checkbox icheck-primary" style="padding-top: 24px;">
+            <%= f.check_box :ativo, class: "form-control" %>
+            <%= f.label :ativo %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 mt-7">
+      <div class="form-group">
+        <%= link_to_remove_association "Remover", f, :class => 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  initSelect2();
+</script>

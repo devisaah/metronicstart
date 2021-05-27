@@ -1,0 +1,24 @@
+<%- model_class = Permissao -%>
+
+<% resource ||= resource %>
+<% remote ||= remote %>
+
+<div class="row">
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+        <dt><strong><%= model_class.human_attribute_name(:descricao) %> :</strong></dt>
+        <dd><%= resource.try(:descricao) %></dd>
+    </dl>
+  </div>
+  <div class="col-md-12 mb-4">
+    <%= render partial: "permissao_itens/table", locals: {permissao: resource} %>
+  </div>
+  <div class="col-md-12 mb-4">
+    <%= render partial: "usuarios/table", locals: {permissao_id: resource.id, remote: !remote} %>
+  </div>
+  <% if can? :audit, model_class %>
+    <div class="col-md-12 mb-4">
+      <%= render partial: "audits/table", locals: {audits: resource.try(:audits), show_collapse: 'show'} %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<%- model_class = Usuario -%>
+
+var content = "<%= escape_javascript(render partial: 'shared/modal', locals: {
+    modal_class: 'modal_new_usuario',
+    modal_id: "modal_new_ano_#{@usuario.id.to_s}",
+    modal_title: t('helpers.titles.new', :model => model_class.model_name.human.titleize),
+    modal_body: render(partial: 'usuarios/form', locals: {remote: 'true'}),
+    modal_buttons: render(partial: 'usuarios/form_actions')
+  })%>";
+
+if (<%= @usuario.errors.any? %>) {
+  $("#modal_new_ano_<%= @usuario.id.to_s %>").modal('remove');
+}
+$(".modals").append(content);
+$("#modal_new_ano_<%= @usuario.id.to_s %>").modal('show');

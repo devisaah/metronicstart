@@ -1,7 +1,7 @@
 <%% remote = false if remote == nil %>
 <%% id ||= Time.now.to_i %> 
 
-<%%= form_for([:admin, @<%= model_resource_name %>], remote: remote, class: "form") do |form| %>
+<%%= form_for([@<%= model_resource_name %>], remote: remote, class: "form") do |form| %>
     <div class="card-body">
         <%%= error_messages(@<%= model_resource_name %>) %>
 
@@ -48,8 +48,8 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-lg-6 col-sm-12 col-md-12">
-                    <%%= render "admin/<%= plural_table_name %>/form_actions" %>
-                    <%%= link_to t("helpers.links.cancel"), <%= "admin_#{plural_table_name}" %>_path, :class => "btn btn-secondary" %>
+                    <%%= render "<%= plural_table_name %>/form_actions" %>
+                    <%%= link_to t("helpers.links.cancel"), <%= "#{plural_table_name}" %>_path, :class => "btn btn-secondary" %>
                 </div>
             </div>
         </div>

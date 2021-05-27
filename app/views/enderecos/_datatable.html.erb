@@ -1,0 +1,54 @@
+
+
+
+<%- model_class = Endereco -%>
+
+<% id ||= Time.now.to_i %>
+<% enderecos ||= enderecos %>
+<% controller ||= controller %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-enderecos" id="table-enderecos-<%= id %>">
+		<thead>
+			<tr>
+				<th>#</th>		
+				<th><%= model_class.human_attribute_name(:cep) %></th>
+				<th><%= model_class.human_attribute_name(:logradouro) %></th>
+                <th><%= model_class.human_attribute_name(:numero) %></th>
+                <th><%= model_class.human_attribute_name(:complemento) %></th>
+                <th><%= model_class.human_attribute_name(:bairro) %></th>
+                <th><%= model_class.human_attribute_name(:cidade) %></th>
+                <th><%= model_class.human_attribute_name(:estado) %></th>
+                <th><%= model_class.human_attribute_name(:lat) %></th>
+                <th><%= model_class.human_attribute_name(:lng) %></th>
+			</tr>
+		</thead>
+		<tbody data-link="row" class="rowlink tbody-enderecos">
+            <% enderecos.each_with_index do |endereco, index| %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= endereco.try(:cep) %></td>
+                    <td><%= endereco.try(:logradouro) %></td>
+                    <td><%= endereco.try(:numero) %></td>
+                    <td><%= endereco.try(:complemento) %></td>
+                    <td><%= endereco.try(:bairro) %></td>
+                    <td><%= endereco.try(:cidade).try(:nome) %></td>
+                    <td><%= endereco.try(:estado).try(:sigla) %></td>
+                    <td><%= endereco.try(:lat) %></td>
+                    <td><%= endereco.try(:lng) %></td>
+                </tr>
+            <% end %>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+    initDatatable();
+    var table_enderecos_<%= id %> = $('#table-enderecos-<%= id %>').DataTable();
+
+    document.addEventListener("turbolinks:before-cache", function() {
+        if (table_enderecos_<%= id %> !== null) {
+            table_enderecos_<%= id %>.destroy();
+            table_enderecos_<%= id %> = null;
+        }
+    });
+</script>

@@ -1,0 +1,148 @@
+<div class="nested-fields">
+    <div class="accordion accordion-toggle-arrow mb-5" id="accordionEndereco_<%= f.index %>">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title" data-toggle="collapse" data-target="#collapseEndereco_<%= f.index %>">
+                    Endereço <%= f.index %>
+                </div>
+            </div>
+            <div id="collapseEndereco_<%= f.index %>" class="collapse show" data-parent="#accordionEndereco_<%= f.index %>">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :cep %>
+                                <%= f.text_field :cep, class: "form-control mascaracep cep-#{f.index}" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :logradouro %>
+                                <%= f.text_field :logradouro, class: "form-control logradouro-#{f.index}" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :numero %>
+                                <%= f.text_field :numero, class: "form-control numero-#{f.index}" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :bairro %>
+                                <%= f.text_field :bairro, class: "form-control bairro-#{f.index}" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :complemento %>
+                                <%= f.text_field :complemento, class: "form-control complemento-#{f.index}" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :estado_id %>
+                                <%= f.collection_select :estado_id, Estado.all, :id, :nome, {include_blank: true},
+                                { data: { dynamic_selectable_target: [".cidade-#{f.index}"]},
+                                class: "form-control select2_basico estado-#{f.index}", style: "width: 100%"
+                                } %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :cidade_id %>
+                                <%= f.collection_select :cidade_id, resource.estado.try(:cidades) || [], :id, :nome, {include_blank: true},
+                                {data: {dynamic_selectable_url: cidades_search_url},
+                                    class: "form-control select2_basico cidade-#{f.index}", style: "width: 100%"
+                                }
+                                %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :lat %>
+                                <%= f.text_field :lat, class: "form-control lat-#{f.index}" %>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <%= f.label :lng %>
+                                <%= f.text_field :lng, class: "form-control lng-#{f.index}" %>
+                            </div>
+                        </div>
+                        <script>
+                            initSelect2();
+                            initMascaras();
+                            var cidade = null;
+                            $(".cep-<%= f.index %>").on("keyup", function(){
+                                var cep = $(".cep-<%= f.index %>").val().replace(".","").replace("-","").replace("_","");
+                                if (cep.length == 8) {
+                                $.ajax({
+                                    url: "/enderecos/get_by_endereco?cep=" + cep,
+                                    method: "GET",
+                                    dataType: "json",
+                                    success: function(data) {
+                                    if (data.message) {
+                                        toastr["error"](data.message);
+                                        $(".logradouro-<%= f.index %>").val("");
+                                        $(".complemento-<%= f.index %>").val("");
+                                        $(".bairro-<%= f.index %>").val("");
+                                        $(".estado-<%= f.index %>").val("").trigger("change");
+                                        $(".cidade-<%= f.index %>").val("").trigger("change");
+                                    } else {
+                                        if (data.logradouro && data.logradouro != "") {
+                                        $(".logradouro-<%= f.index %>").val(data.logradouro);
+                                        } else {
+                                        $(".logradouro-<%= f.index %>").val("CEP Único");
+                                        }
+                                        if (data.bairro && data.bairro != "") {
+                                        $(".bairro-<%= f.index %>").val(data.bairro);
+                                        } else {
+                                        $(".bairro-<%= f.index %>").val("");
+                                        }
+                                        if (data.estado && data.estado != "") {
+                                        $(".estado-<%= f.index %>").val(data.estado.id).trigger("change");
+                                        } else {
+                                        $(".estado-<%= f.index %>").val("").trigger("change");
+                                        }
+                                        if (data.cidade && data.cidade != "") {
+                                        cidade = data.cidade.id;
+                                        }
+                                        
+                                        var address = data.logradouro;
+                                        var city = data.cidade.nome;
+                                        var region = data.estado.sigla;
+                                        var postal = cep;
+
+                                        var latitude = null;
+                                        var longitude = null;
+
+                                        L.esri.Geocoding.geocode().address(address).city(city).region(region).postal(postal).run(function(err, results, response){
+                                        latitude = results.results[0].latlng.lat;
+                                        longitude = results.results[0].latlng.lng;
+                                        if (latitude != null && longitude != null) {
+                                            $(".lat-<%= f.index %>").val(latitude);
+                                            $(".lng-<%= f.index %>").val(longitude);
+                                        }
+                                        });
+
+                                    }
+                                    }
+                                });
+                                }
+                            });
+                            $(".cidade-<%= f.index %>").on("dynamicSelectableChange", function(){
+                                if (cidade != null) {
+                                $(".cidade-<%= f.index %>").val(cidade).trigger("change");
+                                }
+                            });
+
+                            $("select[data-dynamic-selectable-target]").dynamicSelectable();
+                            $(".mascaracep").inputmask({mask:"99999-999", removeMaskOnSubmit: false});
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

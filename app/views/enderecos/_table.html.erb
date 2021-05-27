@@ -1,0 +1,19 @@
+<%- model_class = Endereco -%>
+
+<% controller ||= controller %>
+<% enderecos ||= enderecos %>
+
+<div class="accordion accordion-toggle-plus" id="accordionEndereco">
+  <div class="card">
+    <div class="card-header" id="headingEndereco">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseEndereco" aria-expanded="false" aria-controls="collapseEndereco">
+        <%= model_class.model_name.human(count: 2).titleize %>
+      </div>
+    </div>
+    <div id="collapseEndereco" class="collapse" aria-labelledby="headingEndereco" data-parent="#accordionEndereco" style="">
+      <div class="card-body">
+        <%= render partial: "enderecos/datatable", locals: {enderecos: enderecos, controller: controller} %>
+      </div>
+    </div>
+  </div>
+</div>

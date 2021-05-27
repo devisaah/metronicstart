@@ -1,0 +1,44 @@
+<% if modulo_blog? %>
+    <li class="menu-section" data-filter="modulo_blog" title="Gerenciamento do Blog" >
+        <h4 class="menu-text">Gerenciamento do Blog</h4>
+        <i class="menu-arrow"></i>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+<% end %>
+<% if can? :index, Noticia %>
+    <li class="filter modulo_blog menu-item menu-item-submenu <%= active_header_menu?([["noticias", "*"]]) %>" aria-haspopup="true" data-menu-toggle="hover">
+        <a href="javascript:;" class="menu-link menu-toggle">
+            <i class="menu-icon la la-newspaper-o"></i>
+            <span class="menu-text"><%= Noticia.model_name.human(count: 2).titleize %></span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="menu-submenu">
+            <i class="menu-arrow"></i>
+            <ul class="menu-subnav">
+                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                    <span class="menu-link">
+                        <span class="menu-text"><%= Noticia.model_name.human(count: 2).titleize %></span>
+                    </span>
+                </li>
+                <li class="menu-item <%= active_header_menu?([["noticias", "new"]]) %>" aria-haspopup="true">
+                    <%= link_to new_noticia_path, class: "menu-link" do %>
+                        <i class="menu-bullet menu-bullet-dot">
+                        <span></span>
+                        </i>
+                        <span class="menu-text">
+                            <%= t('helpers.titles.newa', :model => Noticia.model_name.human.titleize) %>
+                        </span>
+                    <% end %>
+                </li>
+                <li class="menu-item <%= active_header_menu?([["noticias", "index"]]) %>" aria-haspopup="true">
+                    <%= link_to noticias_path, class: "menu-link" do %>
+                        <i class="menu-bullet menu-bullet-dot">
+                        <span></span>
+                        </i>
+                        <span class="menu-text"><%= t('helpers.titles.list', :model => Noticia.model_name.human.titleize) %></span>
+                    <% end %>
+                </li>
+            </ul>
+        </div>
+    </li>
+<% end %>

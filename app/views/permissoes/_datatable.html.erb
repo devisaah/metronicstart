@@ -1,0 +1,71 @@
+<%- model_class = Permissao -%>
+
+<% id ||= Time.now.to_i %>
+<% remote ||= remote %>
+<% datatable_url ||= datatable_permissoes_path(remote: remote, format: 'json') %>
+<% link_to_new ||= new_permissao_url() %>
+
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-permissoes" id="table-permissoes-<%= id %>">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th><%= model_class.human_attribute_name(:descricao) %></th>
+      <th><%= t("helpers.actions") %></th>
+    </tr>
+    </thead>
+    <tbody data-link="row" class="rowlink tbody-permissoes">
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+    initDatatable();
+    var table_permissoes_<%= id %> = $('#table-permissoes-<%= id %>').DataTable({
+        stateSave: true,
+        order: [[0, "desc"]],
+        serverSide: true,
+        processing: true,
+        ajax: {
+            url: "<%= datatable_url %>",
+            type: "POST",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            }
+        },
+        columns: [
+            { "data": "index", "class": "col-md-1 coluna-index" },
+            { "data": "descricao" },
+            { "data": "opcoes", "class": "rowlink-skip coluna-opcoes", "orderable": false }
+        ],
+        initComplete: function() {
+            $('<%= link_to link_to_new, class: "mr-4  btn btn-success font-weight-bolder", remote: remote do %><i class="la la-plus"></i> <%= t("helpers.links.newa") %><% end %>')
+                .appendTo(
+                    $('<label class="btn-new"></label>')
+                        .prependTo(
+                            this.closest('.dataTables_wrapper').find('.dataTables_filter')
+                        )
+                );
+            var api = this.api();
+            // Atrasa a consulta para evitar requisições a cada caracter digitado
+            $(".table-permissoes").closest("div.table-responsive").find('div.dataTables_filter input').off('keyup.DT input.DT');
+            var searchDelay = null;
+            $(".table-permissoes").closest("div.table-responsive").find('div.dataTables_filter input').on('keyup', function() {
+                var search = $(".table-permissoes").closest("div.table-responsive").find('div.dataTables_filter input').val();
+                clearTimeout(searchDelay);
+                searchDelay = setTimeout(function() {
+                    if (search != null) {
+                        api.search(search).draw();
+                    }
+                }, 1000);
+            });
+        }
+    });
+
+    document.addEventListener("turbolinks:before-cache", function() {
+        if (table_permissoes_<%= id %> !== null) {
+            table_permissoes_<%= id %>.destroy();
+            table_permissoes_<%= id %> = null;
+        }
+    });
+</script>

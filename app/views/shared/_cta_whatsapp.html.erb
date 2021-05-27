@@ -1,0 +1,16 @@
+<% if Configuracao.try(:last).try(:whatsapp_phone).present? %>
+    <!-- Begin:: Widget WhatsApp -->
+    <div class="wc_whatsapp_app right">
+        <a href="https://api.whatsapp.com/send?phone=<%= Configuracao.try(:last).try(:whatsapp_phone)  %>&text=<%= ERB::Util.url_encode(Configuracao.try(:last).try(:whatsapp_text))  %>" target="_blank" class="wc_whatsapp" title="Abrir Whatsapp">
+            <span class="wc_whatsapp_primary">
+                <span class="close">x</span>
+                <%= image_tag Configuracao.try(:last).try(:empresa).try(:logo).try(:url), alt: "Logo Odont." %>
+                <p><%= Configuracao.try(:last).try(:wc_whatsapp_primary) %></p>
+            </span>
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=<%= Configuracao.try(:last).try(:whatsapp_phone)  %>&text=<%= ERB::Util.url_encode(Configuracao.try(:last).try(:whatsapp_text))  %>" target="_blank" class="wc_whatsapp_secondary" title="Abrir Whatsapp">
+            <p><%= Configuracao.try(:last).try(:wc_whatsapp_secondary) %></p>
+        </a>
+    </div>
+    <!-- End:: Widget WhatsApp -->
+<% end %>

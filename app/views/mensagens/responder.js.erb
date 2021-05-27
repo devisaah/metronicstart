@@ -1,0 +1,16 @@
+<%- model_class = Mensagem -%>
+
+var content = "<%= escape_javascript(render partial: 'shared/modal', locals: {
+    modal_class: 'modal_edit_mensagem',
+    modal_id: "modal_edit_mensagem_#{@mensagem.id.to_s}",
+    modal_title: 'Responder Mensagem',
+    modal_body: render(partial: 'mensagens/form', locals: {remote: 'true'}),
+    modal_buttons: render(partial: 'mensagens/form_actions')
+  })%>";
+
+if (<%= @mensagem.errors.any? %>) {
+  $("#modal_edit_mensagem_<%= @mensagem.id.to_s %>").modal('remove');
+}
+$(".modals").append(content);
+
+$("#modal_edit_mensagem_<%= @mensagem.id.to_s %>").modal('show');

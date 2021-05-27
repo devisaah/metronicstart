@@ -1,0 +1,39 @@
+
+
+
+<%- model_class = Contato -%>
+
+<% id ||= Time.now.to_i %>
+<% contatos ||= contatos %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-contatos" id="table-contatos-<%= id %>">
+		<thead>
+			<tr>
+				<th>#</th>		
+				<th><%= model_class.human_attribute_name(:tipo) %></th>
+				<th><%= model_class.human_attribute_name(:valor) %></th>
+			</tr>
+		</thead>
+		<tbody data-link="row" class="rowlink tbody-contatos">
+            <% contatos.each_with_index do |contato, index| %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= enum_i18n(Contato, :tipo, contato.tipo) %></td>
+                    <td><%= contato.try(:valor) %></td>
+                </tr>
+            <% end %>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+    initDatatable();
+    var table_contatos_<%= id %> = $('#table-contatos-<%= id %>').DataTable();
+
+    document.addEventListener("turbolinks:before-cache", function() {
+        if (table_contatos_<%= id %> !== null) {
+            table_contatos_<%= id %>.destroy();
+            table_contatos_<%= id %> = null;
+        }
+    });
+</script>

@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <%= f.label :sobre %>
+            <%= f.cktext_area :sobre, class: "form-control" %>
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <%= f.label :missao %>
+            <%= f.cktext_area :missao, class: "form-control" %>
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <%= f.label :visao %>
+            <%= f.cktext_area :visao, class: "form-control" %>
+        </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <%= f.label :valores %>
+            <%= f.cktext_area :valores, class: "form-control" %>
+        </div>
+    </div>
+</div>
+<script>
+    var sobre_imagem = new KTImageInput('kt_image_sobre_imagem');
+</script>

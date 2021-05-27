@@ -9,9 +9,9 @@
         _parent.Constructor.apply(this, arguments);
 
         $(element).find(".modal-footer button[type=submit]").on("click", function() {
-            //var form = $(this).closest(".modal-content").find(".modal-body form");
-            //Rails.fire(form[0], 'submit');
-            $(this).closest(".modal-content").find(".modal-body form").submit();
+            var form = $(this).closest(".modal-content").find(".modal-body form");
+            Rails.fire(form[0], 'submit');
+            //$(this).closest(".modal-content").find(".modal-body form").submit();
         });
 
 

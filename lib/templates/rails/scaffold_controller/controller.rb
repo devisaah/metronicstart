@@ -6,14 +6,12 @@ require_dependency "<%= namespaced_path %>/application_controller"
 class <%= controller_class_name %>Controller < ApplicationController
     layout 'cruds'
   
-    before_action :set_<%= singular_table_name %>, only: [:show, :edit, :update, :destroy]
-    # load_and_authorize_resource
+    before_action :set_<%= singular_table_name %>, only: [:show, :edit, :update, :destroy, :ativar, :desativar]
+    load_and_authorize_resource :only => [:show, :edit, :update, :destroy]
   
     # GET <%= route_url %>
     def index
       unless request.format.in?(['html', 'js'])
-        @<%= plural_table_name %> = <%= orm_class.all(class_name) %>
-      else
         @<%= plural_table_name %> = <%= orm_class.all(class_name) %>
       end
       respond_to do |format|
@@ -94,6 +92,16 @@ class <%= controller_class_name %>Controller < ApplicationController
       respond_to do |format|
         format.json { render json: <%= singular_table_name.capitalize %>.search(params[:search])  }
       end
+    end
+
+    def ativar 
+      @<%= singular_table_name %>.ativo = true 
+      @<%= singular_table_name %>.save!
+    end 
+
+    def desativar 
+      @<%= singular_table_name %>.ativo = false 
+      @<%= singular_table_name %>.save!
     end
   
   

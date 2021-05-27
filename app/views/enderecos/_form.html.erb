@@ -1,0 +1,148 @@
+<div class="accordion accordion-toggle-arrow mb-5" id="accordionEndereco">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" data-toggle="collapse" data-target="#collapseEndereco">
+        Endereço
+      </div>
+    </div>
+    <div id="collapseEndereco" class="collapse show" data-parent="#accordionEndereco">
+      <div class="card-body">
+        <div class="row">
+          <%= endereco_form.fields_for attribute, resource do |endereco| %>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <%= endereco.label :cep %>
+                <%= endereco.text_field :cep, class: "form-control mascaracep cep-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <%= endereco.label :logradouro %>
+                <%= endereco.text_field :logradouro, class: "form-control logradouro-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <%= endereco.label :numero %>
+                <%= endereco.text_field :numero, class: "form-control numero-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= endereco.label :bairro %>
+                <%= endereco.text_field :bairro, class: "form-control bairro-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= endereco.label :complemento %>
+                <%= endereco.text_field :complemento, class: "form-control complemento-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= endereco.label :estado_id %>
+                <%= endereco.collection_select :estado_id, Estado.all, :id, :nome, {include_blank: true},
+                { data: { dynamic_selectable_target: [".cidade-#{endereco.object.id}"]},
+                  class: "form-control select2_basico estado-#{endereco.object.id}", style: "width: 100%"
+                } %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= endereco.label :cidade_id %>
+                <%= endereco.collection_select :cidade_id, resource.estado.try(:cidades) || [], :id, :nome, {include_blank: true},
+                  {data: {dynamic_selectable_url: cidades_search_url},
+                    class: "form-control select2_basico cidade-#{endereco.object.id}", style: "width: 100%"
+                  }
+                %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= endereco.label :lat %>
+                <%= endereco.text_field :lat, class: "form-control lat-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <%= endereco.label :lng %>
+                <%= endereco.text_field :lng, class: "form-control lng-#{endereco.object.id}" %>
+              </div>
+            </div>
+            <script>
+              initSelect2();
+              initMascaras();
+              var cidade = null;
+              $(".cep-<%= endereco.object.id %>").on("keyup", function(){
+                var cep = $(".cep-<%= endereco.object.id %>").val().replace(".","").replace("-","").replace("_","");
+                if (cep.length == 8) {
+                  $.ajax({
+                    url: "/enderecos/get_by_endereco?cep=" + cep,
+                    method: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                      if (data.message) {
+                        toastr["error"](data.message);
+                        $(".logradouro-<%= endereco.object.id %>").val("");
+                        $(".complemento-<%= endereco.object.id %>").val("");
+                        $(".bairro-<%= endereco.object.id %>").val("");
+                        $(".estado-<%= endereco.object.id %>").val("").trigger("change");
+                        $(".cidade-<%= endereco.object.id %>").val("").trigger("change");
+                      } else {
+                        if (data.logradouro && data.logradouro != "") {
+                          $(".logradouro-<%= endereco.object.id %>").val(data.logradouro);
+                        } else {
+                          $(".logradouro-<%= endereco.object.id %>").val("CEP Único");
+                        }
+                        if (data.bairro && data.bairro != "") {
+                          $(".bairro-<%= endereco.object.id %>").val(data.bairro);
+                        } else {
+                          $(".bairro-<%= endereco.object.id %>").val("");
+                        }
+                        if (data.estado && data.estado != "") {
+                          $(".estado-<%= endereco.object.id %>").val(data.estado.id).trigger("change");
+                        } else {
+                          $(".estado-<%= endereco.object.id %>").val("").trigger("change");
+                        }
+                        if (data.cidade && data.cidade != "") {
+                          cidade = data.cidade.id;
+                        }
+                        
+                        var address = data.logradouro;
+                        var city = data.cidade.nome;
+                        var region = data.estado.sigla;
+                        var postal = cep;
+
+                        var latitude = null;
+                        var longitude = null;
+
+                        L.esri.Geocoding.geocode().address(address).city(city).region(region).postal(postal).run(function(err, results, response){
+                          latitude = results.results[0].latlng.lat;
+                          longitude = results.results[0].latlng.lng;
+                          if (latitude != null && longitude != null) {
+                            $(".lat-<%= endereco.object.id %>").val(latitude);
+                            $(".lng-<%= endereco.object.id %>").val(longitude);
+                          }
+                        });
+
+                      }
+                    }
+                  });
+                }
+              });
+              $(".cidade-<%= endereco.object.id %>").on("dynamicSelectableChange", function(){
+                if (cidade != null) {
+                  $(".cidade-<%= endereco.object.id %>").val(cidade).trigger("change");
+                }
+              });
+
+              $("select[data-dynamic-selectable-target]").dynamicSelectable();
+              $(".mascaracep").inputmask({mask:"99999-999", removeMaskOnSubmit: false});
+            </script>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<%- model_class = Permissao -%>
+
+if ($(".table-permissoes").length) {
+    $( ".table-permissoes" ).dataTable().api().ajax.reload(null, false);
+}
+
+$("#modal_show_permissao_<%= @permissao.id.to_s %> %>").modal('remove');

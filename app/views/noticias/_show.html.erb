@@ -1,0 +1,53 @@
+<%- model_class = Noticia -%>
+
+<% resource ||= resource %>
+
+<div class="row">
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      
+        <dt><strong><%= model_class.human_attribute_name(:titulo) %> :</strong></dt>
+        <dd><%= resource.try(:titulo) %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:titulo_breve) %> :</strong></dt>
+        <dd><%= resource.try(:titulo_breve) %></dd>
+      
+            
+        <dt><strong><%= model_class.human_attribute_name(:descricao) %> :</strong></dt>
+        <dd><%= resource.try(:descricao).try(:html_safe) %></dd>
+        <dt><strong><%= model_class.human_attribute_name(:descricaobreve) %> :</strong></dt>
+        <dd><%= resource.try(:descricaobreve) %></dd>
+      
+            
+        <dt><strong><%= model_class.human_attribute_name(:imagem) %> :</strong></dt>
+        <dd>
+          <a href="<%= resource.try(:imagem).try(:url) %>" class="image-popup">
+            <%= image_tag resource.try(:imagem).try(:url), class: "w-50"%>
+          </a>
+        </dd>
+      
+            
+        <dt><strong><%= model_class.human_attribute_name(:autor) %> :</strong></dt>
+        <dd><%= resource.try(:autor).try(:nome) %></dd>
+      
+            
+        <dt><strong><%= model_class.human_attribute_name(:ativo) %> :</strong></dt>
+        <dd><%= resource.try(:ativo) ? "Sim" : "Não" %></dd>
+
+    </dl>
+  </div>
+  <% if can? :audit, model_class %>
+    <div class="col-md-12 mb-4">
+      <%= render partial: "audits/table", locals: {audits: resource.try(:audits), show_collapse: 'show'} %>
+    </div>
+  <% end %>
+</div>
+<script>
+  $('.image-popup').magnificPopup({
+      type: 'image',
+      closeOnContentClick: true,
+      mainClass: 'mfp-img-mobile',
+      image: {
+          verticalFit: true
+      }
+  });
+</script>

@@ -1,0 +1,25 @@
+<%= display_meta_tags site: Configuracao.try(:last).try(:metatag_title) %>
+
+<!-- Meta Tags Padrões -->
+<meta name="robots" content="<%= Configuracao.try(:last).try(:metatag_robots) %>">
+<meta name="googlebot" content="<%= Configuracao.try(:last).try(:metatag_googleboot) %>">
+<meta charset="<%= Configuracao.try(:last).try(:metatag_charset) %>">
+<meta name="language" content="<%= Configuracao.try(:last).try(:metatag_language) %>">
+<meta name="revisit-after" content="<%= Configuracao.try(:last).try(:metatag_revisit_after) %>">
+<meta name='organization' content='<%= Empresa.try(:first).try(:razao_social) %>'>
+<meta property='article:publisher' content='<%= Empresa.try(:first).try(:site) %>'>
+
+<meta property="og:site_name" content="<%=  Configuracao.try(:last).try(:metatag_title) %>"/>
+<meta property="og:locale" content="<%= Configuracao.try(:last).try(:tag_language).try(:gsub, '-', '_').try(:gsub, 'br', 'BR') %>"/>
+<meta property='og:article:publisher' content='<%= Empresa.try(:first).try(:site) %>'>
+
+
+<meta name="twitter:card" content="<%= Configuracao.try(:last).try(:metatag_tcard) %>">
+<meta name="twitter:site" content="<%= Configuracao.try(:last).try(:metatag_tsite) %>">
+<meta name="twitter:creator" content="<%= Configuracao.try(:last).try(:metatag_tcreator) %>">
+
+
+<meta property='fb:app_id' content='<%= Configuracao.try(:last).try(:facebook_appid) %>' />
+<meta property='fb:admins' content='<%= Configuracao.try(:last).try(:facebook_admins) %>' />
+
+<%= yield(:metatag_custom) %>

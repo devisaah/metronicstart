@@ -1,0 +1,21 @@
+<%- model_class = Endereco -%>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:cep) %>:</strong></dt>
+  <dd><%= endereco.try(:cep) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:logradouro) %>:</strong></dt>
+  <dd><%= endereco.try(:logradouro) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:numero) %>:</strong></dt>
+  <dd><%= endereco.try(:numero) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bairro) %>:</strong></dt>
+  <dd><%= endereco.try(:bairro) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:complemento) %>:</strong></dt>
+  <dd><%= endereco.try(:complemento) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:estado_id) %>:</strong></dt>
+  <dd><%= endereco.try(:estado).try(:nome) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:cidade_id) %>:</strong></dt>
+  <dd><%= endereco.try(:cidade).try(:nome) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lat) %>:</strong></dt>
+  <dd><%= endereco.try(:lat) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lng) %>:</strong></dt>
+  <dd><%= endereco.try(:lng) %></dd>
+</dl>

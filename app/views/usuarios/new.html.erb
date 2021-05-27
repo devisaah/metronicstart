@@ -1,0 +1,18 @@
+<%- model_class = Usuario -%>
+
+<% content_for :page_title, t('helpers.titles.new', :model => model_class.model_name.human.titleize) %>
+
+<% content_for :breadcrumb do %>
+    <li class="breadcrumb-item">
+        <%= link_to model_class.model_name.human(count: 2).titleize, usuarios_path, class: "text-muted" %>
+    </li>
+    <li class="breadcrumb-item">
+        <%= t('helpers.links.new') %>
+    </li>
+<% end %>
+
+<% content_for :portlet_title do %>
+   <%= t('helpers.titles.new', :model => model_class.model_name.human.titleize) %>
+<% end %>
+
+<%= render 'form' %>

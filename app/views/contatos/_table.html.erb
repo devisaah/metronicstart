@@ -1,0 +1,18 @@
+<%- model_class = Contato -%>
+
+
+
+<div class="accordion accordion-toggle-plus" id="accordionContato">
+  <div class="card">
+    <div class="card-header" id="headingContato">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseContato" aria-expanded="false" aria-controls="collapseContato">
+        <%= model_class.model_name.human(count: 2).titleize %>
+      </div>
+    </div>
+    <div id="collapseContato" class="collapse" aria-labelledby="headingContato" data-parent="#accordionContato" style="">
+      <div class="card-body">
+        <%= render partial: "contatos/datatable", locals: {contatos: contatos} %>
+      </div>
+    </div>
+  </div>
+</div>

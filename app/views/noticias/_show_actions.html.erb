@@ -1,0 +1,16 @@
+<%- model_class = Noticia -%>
+
+<% remote ||= remote %>
+
+<%= link_to edit_noticia_path(noticia), :class => 'btn btn-warning', :remote => remote do  %>
+	<%= t("helpers.links.edit") %>
+<% end %>
+
+<%= link_to noticia_path(noticia),
+    :remote => remote,
+	:method => 'delete',
+	:data => { :confirm => t("helpers.links.confirm_destroy",
+	:model => model_class.model_name.human) },
+	:class => 'btn btn-danger' do %>
+	<%= t("helpers.links.destroy") %>
+<% end %>

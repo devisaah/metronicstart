@@ -1,0 +1,32 @@
+<%- model_class = Permissao -%>
+
+<% content_for :page_title, t('helpers.titles.show', :model => model_class.model_name.human.titleize) %>
+
+<% content_for :breadcrumb do %>
+    <li class="breadcrumb-item">
+        <%= link_to model_class.model_name.human(count: 2).titleize, permissoes_path, class: "text-muted" %>
+    </li>
+    <li class="breadcrumb-item">
+        <%= t('helpers.links.show') %>
+    </li>
+<% end %>
+
+<% content_for :portlet_title do %>
+   <%= t('helpers.titles.show', :model => model_class.model_name.human.titleize) %>
+<% end %>
+
+<div class="card-body">
+    <%= render "show", resource: @permissao  %>
+</div>
+
+<div class="card-footer">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <%= link_to t("helpers.links.back"), permissoes_path, class: "btn btn-secondary" %>
+            <%= render 'show_actions' , permissao: @permissao %>
+            <%= link_to new_permissao_path, class: "btn btn-success" do %>
+              <%= t("helpers.links.new") %>
+            <% end %>
+        </div>
+    </div>
+</div>

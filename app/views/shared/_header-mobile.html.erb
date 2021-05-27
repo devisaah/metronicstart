@@ -1,8 +1,8 @@
 <!--begin::Header Mobile-->
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
     <!--begin::Logo-->
-    <a href="index.html">
-        <img alt="Logo" src="https://dunnastecnologia.com.br/img/logo-dark.png" />
+    <a href="<%= path %>" >
+        <%= image_tag Configuracao.try(:last).try(:empresa).try(:logo).try(:url).nil? ? 'logo.png' : Configuracao.try(:last).try(:empresa).try(:logo).try(:url), class: "max-w-100px pt-2",  alt: "main logo" %>
     </a>
     <!--end::Logo-->
     <!--begin::Toolbar-->

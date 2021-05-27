@@ -1,0 +1,16 @@
+<%- model_class = PermissaoItem -%>
+
+<div class="accordion accordion-toggle-arrow" id="accordionPermssaoItem">
+  <div class="card">
+    <div class="card-header" id="headingPermssaoItem">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapsePermssaoItem" aria-expanded="false" aria-controls="collapsePermssaoItem">
+        Permissão Itens
+      </div>
+    </div>
+    <div id="collapsePermssaoItem" class="collapse" aria-labelledby="headingPermssaoItem" data-parent="#accordionPermssaoItem" style="">
+      <div class="card-body">
+        <%= render partial: 'permissao_itens/datatable', locals: {permissao: permissao} %>
+      </div>
+    </div>
+  </div>
+</div>

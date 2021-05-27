@@ -1,0 +1,85 @@
+<%= f.fields_for :empresa, configuracao.empresa do |empresa_form| %>
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :razao_social %>
+                <%= empresa_form.text_field :razao_social, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :nome_fantasia %>
+                <%= empresa_form.text_field :nome_fantasia, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :cnpj %>
+                <%= empresa_form.text_field :cnpj, class: "form-control mascara-cnpj" %>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :inscricao_estadual %>
+                <%= empresa_form.text_field :inscricao_estadual, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :inscricao_municipal %>
+                <%= empresa_form.text_field :inscricao_municipal, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :site %>
+                <%= empresa_form.text_field :site, class: "form-control" %>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :logo, class: "col-form-label" %>
+                <div class="col-lg-9">
+                    <div class="image-input image-input-outline" id="kt_image_logo">
+                        <div class="image-input-wrapper" style="background-image: url(<%= empresa_form.object.logo.present? ? empresa_form.try(:object).try(:logo).try(:url) : asset_path('img.png') %>)"></div>
+                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-success btn-shadow" data-action="change" data-toggle="tooltip" title="Alterar Logotipo" data-original-title="Alterar Logotipo">
+                            <i class="fa fa-pen icon-sm text-muted"></i>
+                            <%= empresa_form.file_field :logo, accept: ".png, .jpg, .jpeg, .gif" %>
+                            <%= empresa_form.hidden_field :remove_logo %>
+                        </label>
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-success btn-shadow" data-action="cancel" data-toggle="tooltip" title="Remover Logotipo">
+                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-md-12">
+            <div class="form-group">
+                <%= empresa_form.label :favicon, class: "col-form-label" %>
+                <div class="text-muted mb-3">Site para gerar o favicon: <a href="https://genfavicon.com/pt/" target="_blank">https://genfavicon.com/pt/</a> </div>
+                <div class="col-lg-9">
+                    <div class="image-input image-input-outline" id="kt_image_favicon">
+                        <div class="image-input-wrapper" style="background-image: url(<%= empresa_form.object.favicon.present? ? empresa_form.try(:object).try(:favicon).try(:url) :  asset_path('favicon.ico') %>)"></div>
+                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-success btn-shadow" data-action="change" data-toggle="tooltip" title="Alterar Favicon" data-original-title="Alterar Favicon">
+                            <i class="fa fa-pen icon-sm text-muted"></i>
+                            <%= empresa_form.file_field :favicon, accept: ".ico" %>
+                            <%= empresa_form.hidden_field :remove_favicon %>
+                        </label>
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-success btn-shadow" data-action="cancel" data-toggle="tooltip" title="Remover Favicon">
+                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%= render partial: "enderecos/form", locals: {endereco_form: empresa_form, resource: empresa_form.object.endereco.nil? ? empresa_form.object.build_endereco : empresa_form.object.endereco, attribute: :endereco} %>
+    <%= render partial: "contatos/form_contato", locals: {f: empresa_form} %>
+    <%= render partial: "redes_sociais/form_rede_social", locals: {f: empresa_form} %>
+<% end %>
+<script>
+    initMascaras();
+    var logo = new KTImageInput('kt_image_logo');
+    var favicon = new KTImageInput('kt_image_favicon');
+</script>

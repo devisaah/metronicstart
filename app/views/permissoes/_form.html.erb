@@ -1,0 +1,42 @@
+<% remote = false if remote == nil %>
+<% id ||= Time.now.to_i %> 
+
+<%= form_for([@permissao], remote: remote, class: "form") do |form| %>
+    <div class="card-body">
+        <%= error_messages(@permissao) %>
+        <div class="row">
+              <div class="col-lg-6 col-sm-12 col-md-12">
+                  <div class="form-group">
+                        <%= form.label :descricao, class: "label-required" %>
+                        <%= form.text_field :descricao, class: "form-control" %>
+                  </div>
+              </div>
+              <div class="col-lg-6 col-sm-12 col-md-12">
+                <ul>
+                  <li><strong>Nível 0:</strong> não pode nada</li>
+                  <li><strong>Nível 1:</strong> apenas visualizar</li>
+                  <li><strong>Nível 2:</strong> pode visualizar e cadastrar</li>
+                  <li><strong>Nível 3:</strong> pode visualizar e editar</li>
+                  <li><strong>Nível 4:</strong> pode visualizar, cadastrar e editar</li>
+                  <li><strong>Nível 5:</strong> pode visualizar, cadastrar, editar e remover</li>
+                  <li><strong>Nível 6: </strong>pode visualizar, cadastrar, editar, remover e auditoria</li>
+                </ul>
+              </div>
+        </div>
+        <%= render partial: "permissao_itens/form_permissao_item", locals: {f: form} %>
+    </div>
+    <% unless remote %>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-md-12">
+                    <%= render "permissoes/form_actions" %>
+                    <%= link_to t("helpers.links.cancel"), permissoes_path, :class => "btn btn-secondary" %>
+                </div>
+            </div>
+        </div>
+    <% end %>    
+<% end %>
+<script>
+    initSelect2();
+    initCampoObrigatorio();
+</script>

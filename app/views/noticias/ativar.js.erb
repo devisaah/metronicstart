@@ -1,0 +1,4 @@
+toastr["success"]("Noticia ativada com sucesso!");
+if ($(".table-noticias").length) {
+    $( ".table-noticias" ).dataTable().api().ajax.reload(null, false);
+}

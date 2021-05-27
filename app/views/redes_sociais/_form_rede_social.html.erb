@@ -1,0 +1,29 @@
+
+<div class="accordion accordion-toggle-arrow mb-5" id="accordionRedeSocial">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" data-toggle="collapse" data-target="#collapseRedeSocial">
+        Redes Sociais
+      </div>
+    </div>
+    <div id="collapseRedeSocial" class="collapse show" data-parent="#accordionRedeSocial">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-4"></div>
+          <div class="col-4">
+            <%= link_to_add_association "Adicionar Rede Social", f, :redes_sociais,
+              :partial => 'redes_sociais/rede_social_fields',
+              'data-association-insertion-node' => "#redes_sociais",
+              'data-association-insertion-method' => "append", :class => 'btn-rede_social btn btn-success float-right'%>
+          </div>
+        </div>
+        <div id="redes_sociais">
+          <%= f.fields_for :redes_sociais do |rede_social| %>
+            <%= render 'redes_sociais/rede_social_fields', f: rede_social %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

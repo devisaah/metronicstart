@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-lg-6 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_title %>
+      <%= f.text_field :metatag_title, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-12 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_description %>
+      <%= f.text_field :metatag_description, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-12 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_keywords %>
+      <%= f.text_field :metatag_keywords, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_language %>
+      <%= f.text_field :metatag_language, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_author %>
+      <%= f.text_field :metatag_author, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_robots %>
+      <%= f.text_field :metatag_robots, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_googleboot %>
+      <%= f.text_field :metatag_googleboot, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_revisitafter %>
+      <%= f.text_field :metatag_revisitafter, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_charset %>
+      <%= f.text_field :metatag_charset, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_ogimage %>
+      <%= f.text_field :metatag_ogimage, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_ogurl %>
+      <%= f.text_field :metatag_ogurl, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_ogtype %>
+      <%= f.text_field :metatag_ogtype, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_tcard %>
+      <%= f.text_field :metatag_tcard, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_tcreator %>
+      <%= f.text_field :metatag_tcreator, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-3 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :metatag_tsite %>
+      <%= f.text_field :metatag_tsite, class:"form-control" %>
+    </div>
+  </div>
+  <div class="col-lg-4 col-sm-12 col-md-12">
+    <div class="form-group">
+      <%= f.label :logo_rodape, class: "col-form-label" %>
+      <div class="col-lg-9">
+        <div class="image-input image-input-outline" id="kt_image_logo_rodape">
+          <div class="image-input-wrapper" style="background-image: url(<%= f.object.logo_rodape.present? ? f.try(:object).try(:logo_rodape).try(:url) : asset_path('img.png') %>)"></div>
+          <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-success btn-shadow" data-action="change" data-toggle="tooltip" title="Alterar Logotipo" data-original-title="Alterar Logotipo">
+            <i class="fa fa-pen icon-sm text-muted"></i>
+            <%= f.file_field :logo_rodape, accept: ".png, .jpg, .jpeg, .gif" %>
+            <%= f.hidden_field :remove_logo_rodape %>
+          </label>
+          <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-success btn-shadow" data-action="cancel" data-toggle="tooltip" title="Remover Logotipo">
+              <i class="ki ki-bold-close icon-xs text-muted"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var logo_rodape = new KTImageInput('kt_image_logo_rodape');
+</script>

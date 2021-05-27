@@ -4,7 +4,7 @@
 
 <%% content_for :breadcrumb do %>
     <li class="breadcrumb-item">
-        <%%= link_to model_class.model_name.human(count: 2).titleize, admin_<%= plural_table_name %>_path, class: "text-muted" %>
+        <%%= link_to model_class.model_name.human(count: 2).titleize, <%= plural_table_name %>_path, class: "text-muted" %>
     </li>
     <li class="breadcrumb-item">
         <%%= t('helpers.links.new') %>

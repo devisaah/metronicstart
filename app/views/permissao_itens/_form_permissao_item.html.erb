@@ -1,0 +1,28 @@
+<div class="accordion accordion-toggle-arrow mb-5" id="accordionPermissaoItem">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" data-toggle="collapse" data-target="#collapsePermissaoItem">
+        Permissão Itens
+      </div>
+    </div>
+    <div id="collapsePermissaoItem" class="collapse show" data-parent="#accordionPermissaoItem">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-4"></div>
+          <div class="col-4">
+            <%= link_to_add_association "Adicionar Item", f, :permissao_itens,
+              :partial => 'permissao_itens/permissao_item_fields',
+              'data-association-insertion-node' => "#permissao_itens",
+              'data-association-insertion-method' => "append", :class => 'btn-permissao_item btn btn-success float-right'%>
+          </div>
+        </div>
+        <div id="permissao_itens">
+          <%= f.fields_for :permissao_itens do |permissao_item| %>
+            <%= render 'permissao_itens/permissao_item_fields', f: permissao_item %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

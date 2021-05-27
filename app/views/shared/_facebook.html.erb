@@ -1,0 +1,3 @@
+<% if Configuracao.last && Configuracao.last.facebook_pixel %>
+    <%= Configuracao.try(:last).try(:facebook_pixel).try(:html_safe) %>
+<% end %>

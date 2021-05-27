@@ -1,0 +1,15 @@
+<%- model_class = Permissao -%>
+
+
+var content = "<%= escape_javascript(render partial: 'shared/modal', locals: {
+    modal_class: 'modal_show_permissao',
+    modal_id: "modal_show_permissao_#{@permissao.id.to_s}",
+    modal_title: t('helpers.titles.show', :model => model_class.model_name.human.titleize),
+    modal_body: render(partial: 'permissoes/show', locals: {resource: @permissao, remote: true}),
+    modal_buttons: render(partial: 'permissoes/show_actions' , locals: {permissao: @permissao, remote: true})
+  })%>";
+if ($("#modal_show_permissao_<%= @permissao.id.to_s %>").length) {
+    $("#modal_show_permissao_<%= @permissao.id.to_s %>").modal('remove');
+}
+$(".modals").append(content);
+$("#modal_show_permissao_<%= @permissao.id.to_s %>").modal('show');

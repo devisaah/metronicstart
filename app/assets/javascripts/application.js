@@ -12,11 +12,14 @@
 //
 //= require rails-ujs
 //= require activestorage
+//= require serviceworker-companion
 //= require turbolinks
 //= require metronic/plugins.bundle
 //= require metronic/prismjs.bundle
 //= require metronic/scripts.bundle
 //= require modal.bundle
+// require jasny-bootstrap.min
+//= require rowlink
 //= require dynamic_selectable
 //= require jquery.inputmask.bundle.min
 //= require magnific-popup/jquery.magnific-popup.min
@@ -26,6 +29,13 @@
 //= require highcharts/exporting
 //= require highcharts/export-data
 //= require highcharts/variable-pie
+//= require cocoon
+//= require ckeditor_plugins
+//= require frontend/leaflet
+//= require frontend/esri-leaflet.min
+//= require frontend/esri-leaflet-geocoder.min
+//= require object-watch
+//= require print.min
 //= require custom
 // require_tree .
 

@@ -1,0 +1,3 @@
+<% if Configuracao.last && Configuracao.last.one_signal %>
+    <%= Configuracao.try(:last).try(:one_signal).try(:html_safe) %>
+<% end %>

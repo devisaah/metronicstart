@@ -1,0 +1,18 @@
+<%- model_class = Permissao -%>
+
+<% remote ||= remote %>
+
+<div class="accordion accordion-toggle-arrow" id="accordionPermissao">
+  <div class="card">
+    <div class="card-header" id="headingPermissao">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapsePermissao" aria-expanded="false" aria-controls="collapsePermissao">
+        Permissões
+      </div>
+    </div>
+    <div id="collapsePermissao" class="collapse" aria-labelledby="headingPermissao" data-parent="#accordionPermissao" style="">
+      <div class="card-body">
+        <%= render partial: "permissoes/datatable", locals: {remote: remote} %>
+      </div>
+    </div>
+  </div>
+</div>

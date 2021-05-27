@@ -1,0 +1,86 @@
+<% remote = false if remote == nil %>
+<% id ||= Time.now.to_i %> 
+
+<%= form_for([@configuracao], remote: remote, html: {class: 'form'}) do |form| %>
+    <div class="card-body">
+        <%= error_messages(@configuracao) %>
+        <ul class="nav nav-tabs nav-tabs-line">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#kt_tab_pane_dados_gerais">Dados Gerais</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_sobre_nos">Sobre Nós</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_termo">Termos & Políticas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_metatag">Meta Tags</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_google">Google</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_facebook">Facebook</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_whatsapp">WhatsApp</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_notificacao">Notificações</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_chat">Chat de Atendimento</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#kt_tab_pane_historico_alteracoes"> Histórico de Alterações </a>
+            </li>
+        </ul>
+        <div class="tab-content mt-5" id="myTabContent">
+            <div class="tab-pane fade show active" id="kt_tab_pane_dados_gerais" role="tabpanel" aria-labelledby="kt_tab_pane_dados_gerais">
+                <%= render partial: "configuracoes/form_dados_gerais", locals: {f: form, configuracao: @configuracao} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_sobre_nos" role="tabpanel" aria-labelledby="kt_tab_pane_sobre_nos">
+                <%= render partial: "configuracoes/form_sobre_nos", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_termo" role="tabpanel" aria-labelledby="kt_tab_pane_termo">
+                <%= render partial: "configuracoes/form_termo", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_metatag" role="tabpanel" aria-labelledby="kt_tab_pane_metatag">
+                <%= render partial: "configuracoes/form_metatag", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_google" role="tabpanel" aria-labelledby="kt_tab_pane_google">
+                <%= render partial: "configuracoes/form_google", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_facebook" role="tabpanel" aria-labelledby="kt_tab_pane_facebook">
+                <%= render partial: "configuracoes/form_facebook", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_whatsapp" role="tabpanel" aria-labelledby="kt_tab_pane_whatsapp">
+                <%= render partial: "configuracoes/form_whatsapp", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_notificacao" role="tabpanel" aria-labelledby="kt_tab_pane_notificacao">
+                <%= render partial: "configuracoes/form_notificacao", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_chat" role="tabpanel" aria-labelledby="kt_tab_pane_chat">
+                <%= render partial: "configuracoes/form_chat", locals: {f: form} %>
+            </div>
+            <div class="tab-pane fade" id="kt_tab_pane_historico_alteracoes" role="tabpanel" aria-labelledby="kt_tab_pane_historico_alteracoes">
+                <% if can? :audit, Configuracao %>
+                    <div class="col-md-12 mb-4">
+                        <%= render partial: "audits/table", locals: {audits: @configuracao.try(:audits), show_collapse: 'show'} %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <% unless remote %>
+      <div class="card-footer">
+          <div class="row">
+              <div class="col-lg-12 col-sm-12 col-md-12">
+                  <%= render "configuracoes/form_actions" %>
+                  <%= link_to t("helpers.links.cancel"), edit_configuracao_path(Configuracao.try(:first)), :class => "btn btn-secondary" %>
+              </div>
+          </div>
+      </div>
+    <% end %>
+<% end %>

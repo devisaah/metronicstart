@@ -1,0 +1,36 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-lg-4 col-sm-12 col-md-12">
+      <div class="form-group">
+        <%= f.label :tipo, class: "control-label" %>
+        <%= f.select :tipo, enum_options_for_select(Contato, :tipo), {prompt: "Selecione o Contato"}, class: "form-control select2_basico ", onchange: "onChangeTipo(this, this.value)" %>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 col-md-12 div-value">
+      <div class="form-group">
+        <%= f.label :valor, class: "control-label" %>
+        <%= f.text_field :valor, class: "form-control input-value" %>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 col-md-12 mt-7">
+      <div class="form-group">
+        <%= link_to_remove_association "Remover", f, :class => 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  initSelect2();
+  function onChangeTipo(element, value){
+    if (value == 'telefone'){
+      $(element).closest('.nested-fields').find('.input-value').addClass('mascara-telefone');
+      initMascaras();
+    } else if (value == 'celular' || value == 'whatsapp') {
+      $(element).closest('.nested-fields').find('.input-value').addClass('mascara-celular');
+      initMascaras();
+    } else if (value == 'email') {
+      $(element).closest('.nested-fields').find('.input-value').addClass('mascara-email');
+      initMascaras();
+    }
+  }
+</script>

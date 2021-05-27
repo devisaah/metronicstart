@@ -1,0 +1,19 @@
+<%- model_class = Usuario -%>
+
+<% remote ||= remote %>
+<% permissao_id ||= permissao_id %>
+
+<div class="accordion accordion-toggle-arrow" id="accordionUsuario">
+  <div class="card">
+    <div class="card-header" id="headingUsuario">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseUsuario" aria-expanded="false" aria-controls="collapseUsuario">
+        Usuários
+      </div>
+    </div>
+    <div id="collapseUsuario" class="collapse" aria-labelledby="headingUsuario" data-parent="#accordionUsuario" style="">
+      <div class="card-body">
+        <%= render partial: "usuarios/datatable", locals: {remote: remote, permissao_id: permissao_id} %>
+      </div>
+    </div>
+  </div>
+</div>

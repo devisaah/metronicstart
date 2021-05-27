@@ -1,0 +1,47 @@
+<% remote = false if remote == nil %>
+<% id ||= Time.now.to_i %> 
+
+<%= form_for([@mensagem], url: {action: :respondido}, remote: remote, class: "form") do |form| %>
+    <div class="card-body">
+        <%= error_messages(@mensagem) %>
+        <div class="row">   
+            <div class="col-lg-6 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <%= form.label :nome %>
+                    <%= form.text_field :nome, class: "form-control", disabled: true %>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <%= form.label :telefone %>
+                    <%= form.text_field :telefone, class: "form-control", disabled: true %>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <%= form.label :email %>
+                    <%= form.text_field :email, class: "form-control", disabled: true %>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <%= form.label :assunto %>
+                    <%= form.text_field :assunto, class: "form-control", disabled: true %>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <%= form.label :texto %>
+                    <%= form.text_area :texto, class: "form-control", disabled: true, rows: "10" %>
+                </div>
+            </div>
+            <div class="col-lg-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <%= form.label :resposta %>
+                    <%= form.hidden_field :respondido %>
+                    <%= form.text_area :resposta, class: "form-control", rows: "10" %>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>  

@@ -1,0 +1,24 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :sistema, class: "control-label label-required" %>
+        <%= f.select :sistema, enum_options_for_select(PermissaoItem, :sistema), {prompt: "Selecione o Sistema"}, class: "form-control select2_basico" %>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <%= f.label :acesso, class: "control-label label-required" %>
+        <%= f.select :acesso, enum_options_for_select(PermissaoItem, :acesso), {prompt: "Selecione o Nível"}, class: "form-control select2_basico" %>
+      </div>
+    </div>
+    <div class="col-md-4 mt-7">
+      <div class="form-group">
+        <%= link_to_remove_association "Remover", f, :class => 'btn btn-danger' %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    initSelect2();
+</script>

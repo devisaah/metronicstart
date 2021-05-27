@@ -1,0 +1,3 @@
+<% if Configuracao.last && Configuracao.last.adsense_google_responsive %>
+    <%= Configuracao.try(:last).try(:adsense_google_responsive).try(:html_safe) %>
+<% end %>

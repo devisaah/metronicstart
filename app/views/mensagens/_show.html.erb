@@ -1,0 +1,26 @@
+<%- model_class = Mensagem -%>
+
+<% resource ||= resource %>
+
+<div class="row">
+    <div class="col-lg-6 col-sm-12 col-md-12">
+        <dl class="dl-horizontal"> 
+            <dt><strong><%= model_class.human_attribute_name(:nome) %> :</strong></dt>
+            <dd><%= resource.try(:nome) %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:telefone) %> :</strong></dt>
+            <dd><%= resource.try(:telefone) %></dd> 
+            <dt><strong><%= model_class.human_attribute_name(:email) %> :</strong></dt>
+            <dd><%= resource.try(:email) %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:assunto) %> :</strong></dt>
+            <dd><%= resource.try(:assunto) %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:texto) %> :</strong></dt>
+            <dd><%= resource.try(:texto) %></dd>
+            <dt><strong><%= model_class.human_attribute_name(:respondido) %> :</strong></dt>
+            <dd><%= resource.try(:respondido) ? "SIM" : "NÃO" %></dd>
+            <% if resource.respondido %>
+                <dt><strong><%= model_class.human_attribute_name(:resposta) %> :</strong></dt>
+                <dd><%= resource.try(:resposta) %></dd>
+            <% end %>
+        </dl>
+    </div>
+</div>

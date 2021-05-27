@@ -1,0 +1,3 @@
+<% if Configuracao.last && Configuracao.last.jivochat %>
+    <%= Configuracao.try(:last).try(:jivochat).try(:html_safe) %>
+<% end %>

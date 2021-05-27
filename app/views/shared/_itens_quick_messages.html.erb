@@ -1,0 +1,13 @@
+<% mensagens ||= mensagens %>
+
+<% mensagens.each do |mensagem| %>
+    <!--begin: Item-->
+    <div class="d-flex align-items-center flex-wrap mb-5">
+        <div class="d-flex flex-column flex-grow-1 mr-2">
+            <%= link_to mensagem.try(:nome), responder_mensagem_path(mensagem), remote: true, class: "font-weight-bolder text-dark-75 text-hover-primary font-size-lg mb-1" %>
+            <span class="text-muted font-weight-bold"><%= mensagem.try(:assunto) %></span>
+        </div>
+        <span class="btn btn-sm btn-light font-weight-bolder my-lg-0 my-2 py-1 text-dark-50"><%= time_ago_in_words(mensagem.try(:created_at)) %></span>
+    </div>
+    <!--end: Item-->
+<% end %>

@@ -1,0 +1,21 @@
+<%- model_class = Noticia -%>
+
+
+if($(".select2_noticia").length){
+    $(".select2_noticia").append('<option value="'+"<%= @noticia.id %>"+'">' + "<%= @noticia.titulo %>" + '</option>');
+    $('.select2_noticia option[value="' + "<%= @noticia.id %>" +'"]').attr('selected', 'selected').change();
+}
+
+if($(".select2_noticia_by_active").length){
+    $(".select2_noticia_by_active").append('<option value="'+"<%= @noticia.id %>"+'">' + "<%= @noticia.titulo %>" + '</option>');
+    $('.select2_noticia_by_active option[value="' + "<%= @noticia.id %>" +'"]').attr('selected', 'selected').change();
+}
+
+
+if ($(".table-noticias").length) {
+    $( ".table-noticias" ).dataTable().api().ajax.reload(null, false);
+}
+
+
+
+$(".modals .modal_new_noticia:last").modal('remove');

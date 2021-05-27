@@ -1,0 +1,4 @@
+toastr["success"]("Usuario ativado com sucesso!");
+if ($(".table-usuarios").length) {
+    $( ".table-usuarios" ).dataTable().api().ajax.reload(null, false);
+}

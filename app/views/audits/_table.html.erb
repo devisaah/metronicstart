@@ -1,0 +1,18 @@
+<% show_collapse ||= show_collapse %>
+<% audits ||= audits %>
+
+
+<div class="accordion accordion-toggle-plus mb-4" id="accordionAudit">
+  <div class="card">
+    <div class="card-header" id="headingAudit">
+      <div class="card-title collapsed" data-toggle="collapse" data-target="#collapseAudit" aria-expanded="false" aria-controls="collapseAudit">
+        Histórico de Alterações
+      </div>
+    </div>
+    <div id="collapseAudit" class="collapse <%= show_collapse %>" aria-labelledby="headingAudit" data-parent="#accordionAudit" style="">
+      <div class="card-body">
+        <%= render partial: 'audits/datatable', locals: {audits: audits} %>   
+      </div>
+    </div>
+  </div>
+</div>

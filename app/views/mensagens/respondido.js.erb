@@ -1,0 +1,12 @@
+<%- model_class = Mensagem -%>
+
+
+if ($(".table-mensagens").length) {
+    $( ".table-mensagens" ).dataTable().api().ajax.reload(null, false);
+}
+
+$("#kt_quick_panel_messages").find("#list_messages").html("<%= escape_javascript(render partial: 'shared/itens_quick_messages', locals: {mensagens: Mensagem.where(respondido: [false, nil])}) %>");
+
+$("#modal_edit_mensagem_<%= @mensagem.id.to_s %>").modal('remove');
+
+$('#loader-wrapper').hide();

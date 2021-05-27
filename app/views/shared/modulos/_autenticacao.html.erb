@@ -1,0 +1,81 @@
+<% if modulo_autenticacao? %>
+    <li class="menu-section" data-filter="modulo_autenticacao" title="Autenticação" >
+        <h4 class="menu-text">Autenticação</h4>
+        <i class="menu-arrow"></i>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+<% end %>
+<% if can? :index,  Permissao %>
+    <li class="filter modulo_autenticacao menu-item menu-item-submenu <%= active_header_menu?([["permissoes", "*"]]) %>" aria-haspopup="true" data-menu-toggle="hover">
+        <a href="javascript:;" class="menu-link menu-toggle">
+            <i class="menu-icon la la-lock"></i>
+            <span class="menu-text"><%= Permissao.model_name.human(count: 2).titleize %></span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="menu-submenu">
+            <i class="menu-arrow"></i>
+            <ul class="menu-subnav">
+                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                    <span class="menu-link">
+                    <span class="menu-text"><%= Permissao.model_name.human(count: 2).titleize %></span>
+                    </span>
+                </li>
+                <li class="menu-item <%= active_header_menu?([["permissoes", "new"]]) %>" aria-haspopup="true">
+                    <%= link_to new_permissao_path, class: "menu-link" do %>
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
+                        <span class="menu-text">
+                            <%= t('helpers.titles.newa', :model => Permissao.model_name.human.titleize) %>
+                        </span>
+                    <% end %>
+                </li>
+                <li class="menu-item <%= active_header_menu?([["permissoes", "index"]]) %>" aria-haspopup="true">
+                    <%= link_to permissoes_path, class: "menu-link" do %>
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
+                        <span class="menu-text"><%= t('helpers.titles.list', :model => Permissao.model_name.human.titleize) %></span>
+                    <% end %>
+                </li>
+            </ul>
+        </div>
+    </li>
+<% end %>
+<% if can? :index, Usuario %>
+    <li class="filter modulo_autenticacao menu-item menu-item-submenu <%= active_header_menu?([["usuarios", "*"]]) %>" aria-haspopup="true" data-menu-toggle="hover">
+        <a href="javascript:;" class="menu-link menu-toggle">
+            <i class="menu-icon la la-user"></i>
+            <span class="menu-text"><%= Usuario.model_name.human(count: 2).titleize %></span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="menu-submenu">
+            <i class="menu-arrow"></i>
+            <ul class="menu-subnav">
+                <li class="menu-item menu-item-parent" aria-haspopup="true">
+                    <span class="menu-link">
+                        <span class="menu-text"><%= Usuario.model_name.human(count: 2).titleize %></span>
+                    </span>
+                </li>
+                <li class="menu-item <%= active_header_menu?([["usuarios", "new"]]) %>" aria-haspopup="true">
+                    <%= link_to new_usuario_path, class: "menu-link" do %>
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
+                        <span class="menu-text">
+                            <%= t('helpers.titles.new', :model => Usuario.model_name.human.titleize) %>
+                        </span>
+                    <% end %>
+                </li>
+                <li class="menu-item <%= active_header_menu?([["usuarios", "index"]]) %>" aria-haspopup="true">
+                    <%= link_to usuarios_path, class: "menu-link" do %>
+                        <i class="menu-bullet menu-bullet-dot">
+                            <span></span>
+                        </i>
+                        <span class="menu-text"><%= t('helpers.titles.list', :model => Usuario.model_name.human.titleize) %></span>
+                    <% end %>
+                </li>
+            </ul>
+        </div>
+    </li>
+<% end %>

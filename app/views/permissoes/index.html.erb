@@ -1,0 +1,20 @@
+<%- model_class = Permissao -%>
+
+<% content_for :page_title, t('helpers.titles.list', :model => model_class.model_name.human(count: 2).titleize) %>
+
+<% content_for :breadcrumb do %>
+    <li class="breadcrumb-item">
+        <%= link_to model_class.model_name.human(count: 2).titleize, permissoes_path, class: "text-muted" %>
+    </li>
+    <li class="breadcrumb-item">
+        <%= t('helpers.links.list') %>
+    </li>
+<% end %>
+
+<% content_for :portlet_title do %>
+   <%= t('helpers.titles.list', :model => model_class.model_name.human(count: 2).titleize) %>
+<% end %>
+
+<div class="card-body">
+    <%= render 'datatable' %>
+</div>

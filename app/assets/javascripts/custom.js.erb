@@ -71,7 +71,7 @@ function templateSelect2(controller, placeholder, ajax, allowClear){
             allowClear:  allowClear,
             placeholder: placeholder,
             ajax: {
-                url: '/admin/' + controller +'/search/',
+                url: '/' + controller +'/search/',
                 delay: 1000,
                 data: function (params) {
                     return { search: params.term };
@@ -108,7 +108,7 @@ function templateSelect2(controller, placeholder, ajax, allowClear){
                     return 1 == e.maximum ? n += "m" : n += "ns", n
                 },
                 noResults: function() {
-                    return "<a class='btn btn-success btn-sm' id='value' data-remote='true' href='/admin/"+controller+"/new'><i class='la la-plus'></i> Add </a>";
+                    return "<a class='btn btn-success btn-sm' id='value' data-remote='true' href='/"+controller+"/new'><i class='la la-plus'></i> Add </a>";
                 },
                 searching: function() {
                     return "Buscando…"
@@ -129,9 +129,71 @@ function templateSelect2(controller, placeholder, ajax, allowClear){
 
 function initSelect2(){
     $(".select2_basico").select2(templateSelect2(null, "Selecione", false, true));
+    $(".select2_usuario").select2(templateSelect2("usuarios", "Selecione o Usuário", true, true));
+    $(".select2_licenciamento").select2(templateSelect2("licenciamentos", "Selecione o Licenciamento", true, true));
+    $(".select2_seguro").select2(templateSelect2("seguros", "Selecione o Seguro", true, true));
+    $(".select2_registro").select2(templateSelect2("registros", "Selecione o Registro", true, true));
+    $(".select2_manutencao").select2(templateSelect2("manutencoes", "Selecione a Manutenção", true, true));
+    $(".select2_curso").select2(templateSelect2("cursos", "Selecione o Curso", true, true));
+    $(".select2_conta").select2(templateSelect2("contas", "Selecione a Conta", true, true));
+    $(".select2_categoria").select2(templateSelect2("categorias", "Selecione a Categoria", true, true));
+    $(".select2_centro_custo").select2(templateSelect2("centro_custos", "Selecione o Centro de Custo", true, true));
+    $(".select2_forma_pagamento").select2(templateSelect2("forma_pagamentos", "Selecione a Forma de Pagamento", true, true));
+    $(".select2_veiculo").select2(templateSelect2("veiculos", "Selecione o Veículo", true, true));
+    $(".select2_colaborador").select2(templateSelect2("colaboradores", "Selecione o Colaborador", true, true));
+
+    $(".select2_pessoas_group_by_tipo").select2({
+        placeholder: "Selecione",
+		allowClear: true,
+        language: {
+                errorLoading: function() {
+                    return "Os resultados não puderam ser carregados."
+                },
+                inputTooLong: function(e) {
+                    var n = e.input.length - e.maximum,
+                        r = "Apague " + n + " caracter";
+                    return 1 != n && (r += "es"), r
+                },
+                inputTooShort: function(e) {
+                    return "Digite " + (e.minimum - e.input.length) + " ou mais caracteres"
+                },
+                loadingMore: function() {
+                    return "Carregando mais resultados…"
+                },
+                maximumSelected: function(e) {
+                    var n = "Você só pode selecionar " + e.maximum + " ite";
+                    return 1 == e.maximum ? n += "m" : n += "ns", n
+                },
+                noResults: function() {
+                    return "Nenhum resultado encontrado"
+                },
+                searching: function() {
+                    return "Buscando…"
+                },
+                removeAllItems: function() {
+                    return "Remover todos os itens"
+                }
+            },
+        ajax: {
+            url: '/movimentacoes/pessoa_group_by_tipo',
+            delay: 1000, 
+            data: function (params) {
+                return { search: params.term };
+            },
+            dataType: 'json',
+            processResults: function (data, page) {
+                return {
+                    results: data
+                };
+            },
+        },
+        escapeMarkup: function (markup) { return markup; },
+        minimumInputLength: 3
+    }).on('select2:select', function(e) {
+        $(this).siblings("input[type='hidden']").val(e.params.data.tipo);
+    });  
+
 }
-
-
 
 
 // init campo obrigatorio
@@ -169,10 +231,19 @@ function initMascaras(){
     $(".mascara-celular").inputmask({ mask: ["(99) 9999-9999", "(99) 99999-9999"], removeMaskOnSubmit: false });
     $(".mascara-rg").inputmask({ mask: "999.999.999", removeMaskOnSubmit: false, numericInput: true, placeholder: " " });
     $(".mascara-cep").inputmask({ mask: "99999-999", removeMaskOnSubmit: false });
-    $(".mascara-peso").inputmask({mask: "99.99 KG", removeMaskOnSubmit: false});
-    $(".mascara-altura").inputmask({mask: "9.99 M", removeMaskOnSubmit: false});
-    $(".mascara-minuto").inputmask({mask: "99[9] MINUTOS", greedy: false, removeMaskOnSubmit: false});
-    $('.mascara-dinheiro').inputmask("currency");
+    $(".mascara-cro").inputmask({ mask: "9999", removeMaskOnSubmit: false });
+    $(".mascara-cro_uf").inputmask({ mask: "aa", removeMaskOnSubmit: false });
+    $('.mascara-dinheiro').inputmask("currency", {"autoUnmask": true,
+        radixPoint:",",
+        groupSeparator: ".",
+        allowMinus: false,
+        prefix: 'R$ ',            
+        digits: 2,
+        digitsOptional: false,
+        rightAlign: true,
+        unmaskAsNumber: true
+    });
+    $(".mascara-dataBR").inputmask({ mask: "99/99/9999", removeMaskOnSubmit: false});
 }
 
 function initColorpicker(){
@@ -194,21 +265,44 @@ function initImagePopup() {
     });
 }
 
-function initDatetimepicker() {
-    // Demo 1
-    $('.kt_datetimepicker_4').datetimepicker({
-        locale: 'pt-br',
-        format: 'L'
-    });
+function initDatepicker(){
+	$(".datetimepicker").datetimepicker({
+		format: 'dd/mm/yyyy hh:ii',
+		autoclose: true,
+        todayBtn: true,
+		pickerPosition: "bottom-left",
+		language: 'pt-br'
+	});
 
-    // Demo 5
-    $('.kt_datetimepicker_5').datetimepicker({
-        locale: 'pt-br',
-        icons: {
-            time: "far fa-clock",
-            date: "far fa-calendar-alt",
-            up: "fas fa-angle-up",
-            down: "fas fa-angle-down"
-        }
+	$('.datepicker').datepicker({
+		format: 'dd/mm/yyyy',
+		language: 'pt-br',
+		autoclose: true
+	});
+
+	$(".timepicker").datetimepicker({
+		pickDate: false,
+		pickerPosition: 'bottom-right',
+		format: 'HH:ii p',
+		autoclose: true,
+		showMeridian: true,
+		startView: 1,
+		maxView: 1,
+		language: 'pt-br'
+	});
+}
+
+function initDatetimepicker() {
+    $('.kt_datepicker').datepicker({
+        rtl: KTUtil.isRTL(),
+        todayHighlight: true,
+        orientation: "bottom left",
+        templates: arrows = {
+            leftArrow: '<i class="la la-angle-right"></i>',
+            rightArrow: '<i class="la la-angle-left"></i>'
+        },
+        format: 'dd/mm/yyyy',
+        language: 'pt-br',
+        autoclose: true
     });
 }

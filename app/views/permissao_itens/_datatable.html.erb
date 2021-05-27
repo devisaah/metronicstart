@@ -1,0 +1,22 @@
+<%- model_class = PermissaoItem -%>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-permissao_itens" id="table-permissao_itens">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th><%= model_class.human_attribute_name(:sistema) %></th>
+      <th><%= model_class.human_attribute_name(:acesso) %></th>
+    </tr>
+    </thead>
+    <tbody class="tbody-permissao_itens">
+    <% permissao.permissao_itens.each_with_index do |item, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= enum_i18n(PermissaoItem, :sistema, item.sistema) %></td>
+        <td><%= enum_i18n(PermissaoItem, :acesso, item.acesso) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

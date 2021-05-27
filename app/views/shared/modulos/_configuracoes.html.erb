@@ -1,0 +1,33 @@
+<% if modulo_configuracao? %>
+    <li class="menu-section" data-filter="modulo_configuracao" title="Configurações do Site" >
+        <h4 class="menu-text">Configurações</h4>
+        <i class="menu-arrow"></i>
+        <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+    </li>
+<% end %>
+<% if can? :index, Configuracao %>
+    <li class="filter modulo_configuracao menu-item <%= active_header_menu?([['configuracoes', 'edit']])%>" aria-haspopup="true">
+        <% if Configuracao.first.present? %>
+            <%= link_to edit_configuracao_path(Configuracao.try(:first)), class: "menu-link" do %>
+                <i class="menu-icon la la-cog"></i>
+                <span class="menu-text"><%= t('helpers.titles.edit', :model => Configuracao.model_name.human.titleize) %></span>
+            <% end %>
+        <% end %>
+    </li>
+<% end %>
+<% if can? :index, Mensagem %>
+    <li class="filter modulo_configuracao menu-item <%= active_header_menu?([['mensagens', 'index']])%>" aria-haspopup="true">
+        <%= link_to mensagens_path, class: "menu-link" do %>
+            <i class="menu-icon la la-envelope"></i>
+            <span class="menu-text"><%= t('helpers.titles.list', :model => Mensagem.model_name.human.titleize) %></span>
+        <% end %>
+    </li>
+<% end %>
+<% if can? :index, Ouvidoria %>
+    <li class="filter modulo_configuracao menu-item <%= active_header_menu?([['ouvidorias', 'index']])%>" aria-haspopup="true">
+        <%= link_to ouvidorias_path, class: "menu-link" do %>
+            <i class="menu-icon la la-phone"></i>
+            <span class="menu-text"><%= t('helpers.titles.list', :model => Ouvidoria.model_name.human.titleize) %></span>
+        <% end %>
+    </li>
+<% end %>

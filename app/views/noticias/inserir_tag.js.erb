@@ -1,0 +1,14 @@
+<%- model_class = Noticia -%>
+
+
+var content = "<%= escape_javascript(render partial: 'shared/modal', locals: {
+    modal_class: 'modal_new_noticia',
+    modal_id: "modal_new_noticia",
+    modal_title: t('helpers.titles.new', :model => model_class.model_name.human.titleize),
+    modal_body: render(partial: 'noticias/form_tag', locals: {remote: 'true'}),
+    modal_buttons: ""
+  })%>";
+
+
+$(".modals").append(content);
+$("#modal_new_noticia").modal('show');

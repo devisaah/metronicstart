@@ -1,0 +1,39 @@
+
+
+
+<%- model_class = RedeSocial -%>
+
+<% id ||= Time.now.to_i %>
+<% redes_sociais ||= redes_sociais %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-redes_sociais" id="table-redes_sociais-<%= id %>">
+		<thead>
+			<tr>
+				<th>#</th>		
+				<th><%= model_class.human_attribute_name(:tipo) %></th>
+				<th><%= model_class.human_attribute_name(:url) %></th>
+			</tr>
+		</thead>
+		<tbody data-link="row" class="rowlink tbody-redes_sociais">
+            <% redes_sociais.each_with_index do |rede_social, index| %>
+                <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= enum_i18n(RedeSocial, :tipo, rede_social.tipo) %></td>
+                    <td><%= rede_social.try(:url) %></td>
+                </tr>
+            <% end %>
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+    initDatatable();
+    var table_redes_sociais_<%= id %> = $('#table-redes_sociais-<%= id %>').DataTable();
+
+    document.addEventListener("turbolinks:before-cache", function() {
+        if (table_redes_sociais_<%= id %> !== null) {
+            table_redes_sociais_<%= id %>.destroy();
+            table_redes_sociais_<%= id %> = null;
+        }
+    });
+</script>

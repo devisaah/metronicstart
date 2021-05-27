@@ -1,0 +1,35 @@
+<% autor ||= autor %>
+<% description ||= description %>
+<% title ||= title %>
+<% keywords ||= keywords %>
+<% tag ||= tag %>
+<% modified_time ||= modified_time %>
+<% published_time ||= published_time %>
+<% image ||= image %>
+<% url ||= url %>
+<% updated_time ||= updated_time %>
+<% image_width ||= image_width %>
+<% image_height ||= image_height %>
+<% section ||= section %>
+<% content_for :metatag_custom do %>
+  <meta name="author" content="<%= autor %>">
+  <meta name="description" content="<%= description %>">
+  <meta name="title" content="<%= title %>">
+  <meta name="keywords" content="<%= keywords %>">
+  <meta property='article:tag' content='<%= tag %>'>
+  <meta property='article:modified_time' content='<%= modified_time %>'>
+  <meta property='article:published_time' content='<%= published_time %>'>
+  <meta property="og:description" content="<%= description %>"/>
+  <meta property="og:title" content="<%= title %>"/>
+  <meta property="og:image" content="<%= "#{image}" %>"/>
+  <meta property="og:url" content="<%= url %>"/>
+  <meta property="og:type" content="article"/>
+  <meta name="og:author" content="<%= autor %>">
+  <meta property='og:updated_time' content='<%= updated_time %>'>
+  <meta property='og:image:width' content='<%= image_width %>'>
+  <meta property='og:image:height' content='<%= image_height %>'>
+  <meta property='article:section' content='<%= section %>'>
+  <meta name="twitter:title" content="<%= title %>">
+  <meta name="twitter:description" content="<%= description %>">
+  <meta name="twitter:image" content="<%= "#{image}" %>">
+<% end %>

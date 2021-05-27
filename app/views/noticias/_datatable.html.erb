@@ -1,0 +1,78 @@
+
+
+
+<%- model_class = Noticia -%>
+
+<% id ||= Time.now.to_i %>
+<% remote ||= remote %>
+<% autor_id ||= autor_id %>
+<% datatable_url ||= datatable_noticias_url(autor_id: autor_id, autor_idremote: remote, format: 'json') %>
+<% link_to_new ||= new_noticia_url(noticia: {autor_id: autor_id}) %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-noticias" id="table-noticias-<%= id %>">
+		<thead>
+			<tr>
+				<th>#</th>		
+				<th><%= model_class.human_attribute_name(:titulo) %></th>
+                <th><%= model_class.human_attribute_name(:created_at) %></th>
+				<th><%= model_class.human_attribute_name(:ativo) %></th>
+				<th><%= t("helpers.actions") %></th>
+			</tr>
+		</thead>
+		<tbody data-link="row" class="rowlink tbody-noticias">
+		</tbody>
+	</table>
+</div>
+<script type="text/javascript">
+    initDatatable();
+    var table_noticias_<%= id %> = $('#table-noticias-<%= id %>').DataTable({
+        stateSave: true,
+        order: [[0, "desc"]],
+        serverSide: true,
+        processing: true,
+        ajax: {
+            url: "<%= datatable_url %>",
+            type: "POST",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            }
+        },
+        columns: [
+            { "data": "index", "class": "col-md-1 coluna-index" },
+			{ "data": "titulo" },
+            { "data": "created_at" },
+			{ "data": "ativo" },
+            { "data": "opcoes", "class": "rowlink-skip coluna-opcoes", "orderable": false }
+        ],
+        initComplete: function() {
+            $('<%= link_to link_to_new, class: "mr-4 btn btn-success font-weight-bolder", remote: remote do %><i class="la la-plus"></i> <%= t("helpers.links.newa") %><% end %>')
+                .appendTo(
+                    $('<label class="btn-new"></label>')
+                        .prependTo(
+                            this.closest('.dataTables_wrapper').find('.dataTables_filter')
+                        )
+                );
+            var api = this.api();
+            // Atrasa a consulta para evitar requisições a cada caracter digitado
+            $(".table-noticias").closest("div.table-responsive").find('div.dataTables_filter input').off('keyup.DT input.DT');
+            var searchDelay = null;
+            $(".table-noticias").closest("div.table-responsive").find('div.dataTables_filter input').on('keyup', function() {
+                var search = $(".table-noticias").closest("div.table-responsive").find('div.dataTables_filter input').val();
+                clearTimeout(searchDelay);
+                searchDelay = setTimeout(function() {
+                    if (search != null) {
+                        api.search(search).draw();
+                    }
+                }, 1000);
+            });
+        }
+    });
+
+    document.addEventListener("turbolinks:before-cache", function() {
+        if (table_noticias_<%= id %> !== null) {
+            table_noticias_<%= id %>.destroy();
+            table_noticias_<%= id %> = null;
+        }
+    });
+</script>

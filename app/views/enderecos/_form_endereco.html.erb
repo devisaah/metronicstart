@@ -1,0 +1,29 @@
+
+<div class="accordion accordion-toggle-arrow mb-5" id="accordionEndereco">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" data-toggle="collapse" data-target="#collapseEndereco">
+        Enderecos
+      </div>
+    </div>
+    <div id="collapseEndereco" class="collapse show" data-parent="#accordionEndereco">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-4"></div>
+          <div class="col-4"></div>
+          <div class="col-4">
+            <%= link_to_add_association "Adicionar Endereco", f, :enderecos,
+              :partial => 'enderecos/endereco_fields',
+              'data-association-insertion-node' => "#enderecos",
+              'data-association-insertion-method' => "append", :class => 'btn-endereco btn btn-success float-right'%>
+          </div>
+        </div>
+        <div id="enderecos">
+          <%= f.fields_for :enderecos do |endereco| %>
+            <%= render 'enderecos/endereco_fields', f: endereco %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

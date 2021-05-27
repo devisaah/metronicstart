@@ -1,0 +1,10 @@
+<%- model_class = Usuario -%>
+
+
+if ($(".table-usuarios").length) {
+    $( ".table-usuarios" ).dataTable().api().ajax.reload(null, false);
+}
+
+
+
+$(".modals .modal_new_usuario:last").modal('remove');

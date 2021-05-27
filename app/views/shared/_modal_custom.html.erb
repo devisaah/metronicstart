@@ -1,0 +1,21 @@
+<% modal_class ||= modal_class %>
+<% modal_id ||= modal_id %>
+<% modal_title ||= modal_title %>
+<% modal_body ||= modal_body %>
+<% modal_buttons ||= modal_buttons %>
+
+<div class="modal fade <%= modal_class %> modal-custom" data-keyboard="false" data-backdrop="static" id="<%= modal_id %>" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <div class="pull-left">
+          <button type="button" data-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <%= modal_body %>
+      </div>
+    </div>
+  </div>
+</div>

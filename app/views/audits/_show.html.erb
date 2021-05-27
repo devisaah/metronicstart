@@ -1,0 +1,22 @@
+<%- model_class = @audit.auditable_type.safe_constantize -%>
+
+<% remote ||= remote %>
+
+<div class="m-portlet__body">
+  <div class="row">
+    <div class="col-md-12">
+      <dl class="dl-horizontal">
+        <h3><strong>Alterações:</strong></h3>
+        <% @audit['audited_changes'].map do |k,v| %>
+          <h5> <%= @audit.auditable_type.safe_constantize.human_attribute_name(k) %>: </h5>
+          <% if v.kind_of?(Array) %>
+            Antes: <%= v[0] %><dd>
+            Depois: <%= v[1] %>
+          <% else %>
+            <dd><%= v || "Nulo" %></dd>
+          <% end %>
+        <% end %>
+      </dl>
+    </div>
+  </div>
+</div>

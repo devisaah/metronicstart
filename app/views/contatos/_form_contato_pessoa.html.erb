@@ -1,0 +1,30 @@
+<div class="accordion accordion-toggle-arrow mb-5" id="accordionContato">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" data-toggle="collapse" data-target="#collapseContato">
+        Contatos
+      </div>
+    </div>
+    <div id="collapseContato" class="collapse show" data-parent="#accordionContato">
+        <%= f.fields_for :pessoa do |pessoa|  %>
+            <div class="card-body">
+                <div class="row">
+                <div class="col-4"></div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <%= link_to_add_association "Adicionar Contato", pessoa, :contatos,
+                    :partial => 'contatos/contato_fields',
+                    'data-association-insertion-node' => "#contatos",
+                    'data-association-insertion-method' => "append", :class => 'btn-contato btn btn-success float-right'%>
+                </div>
+                </div>
+                <div id="contatos">
+                <%= pessoa.fields_for :contatos do |contato| %>
+                    <%= render 'contatos/contato_fields', f: contato %>
+                <% end %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<% audits ||= audits %>
+
+<div class="table-responsive">
+	<table class="table table-bordered table-hover table-audits" id="table-audits">
+		<thead>
+			<tr>
+				<th>#</th>
+                <th>Usuário</th>
+                <th>Tipo</th>
+                <th>Ação</th>
+                <th>Alteração</th>
+                <th>Versão</th>
+                <th>IP</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if audits.present? %>
+                <% audits.try(:each) do |audit| %>
+                    <tr>
+                        <td class="col-md-1 coluna-index"><%= audit.try(:id) %></td>
+                        <td><%= audit.try(:user).try(:nome) %></td>
+                        <td><%= audit.try(:auditable_type) %></td>
+                        <td><%= audit.try(:action) %></td>
+                        <td>
+                            <%= link_to "Visualizar Alteração", "/audits/show?audit_id=#{audit.try(:id)}&auditable_type=#{audit.try(:auditable_type)}&auditable_id=#{audit.try(:auditable_id)}", class: "bg-primary text-white py-2 px-4", remote: true %>
+                        </td>
+                        <td class="col-md-1 coluna-index"><%= audit.try(:version) %></td>
+                        <td><%= audit.try(:remote_address) %></td>
+                        <td><%= audit.try(:created_at) %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<script>
+initDatatable();
+$('#table-audits').DataTable({
+    "order": [[ 7, "desc" ]]
+});
+</script>

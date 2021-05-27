@@ -1,0 +1,37 @@
+<!--begin::Quick Panel-->
+<div id="kt_quick_panel" class="offcanvas offcanvas-right pt-5 pb-10">
+    <!--begin::Header-->
+    <div class="offcanvas-header offcanvas-header-navs d-flex align-items-center justify-content-between mb-5">
+        <ul class="nav nav-bold nav-tabs nav-tabs-line nav-tabs-line-3x nav-tabs-primary flex-grow-1 px-10" role="tablist">
+            <% if can? :index, Mensagem %>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#kt_quick_panel_messages">Mensagens</a>
+                </li>
+            <% end %> 
+        </ul>
+        <div class="offcanvas-close mt-n1 pr-5">
+            <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_panel_close">
+                <i class="ki ki-close icon-xs text-muted"></i>
+            </a>
+        </div>
+    </div>
+    <!--end::Header-->
+    <!--begin::Content-->
+    <div class="offcanvas-content px-10">
+        <div class="tab-content">
+            <% if can? :index, Mensagem %>
+                <!--begin::Tabpane-->
+                <div class="tab-pane fade show pt-3 pr-5 mr-n5 active" id="kt_quick_panel_messages" role="tabpanel">
+                    <!--begin::Section-->
+                    <div class="mb-15" id="list_messages">
+                        <%= render partial: "shared/itens_quick_messages", locals: {mensagens: Mensagem.where(respondido: nil)}  %>
+                    </div>
+                    <!--end::Section-->
+                </div>
+                <!--end::Tabpane-->
+            <% end %>
+        </div>
+    </div>
+    <!--end::Content-->
+</div>
+<!--end::Quick Panel-->

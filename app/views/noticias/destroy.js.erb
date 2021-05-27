@@ -1,0 +1,7 @@
+<%- model_class = Noticia -%>
+
+if ($(".table-noticias").length) {
+    $( ".table-noticias" ).dataTable().api().ajax.reload(null, false);
+}
+
+$("#modal_show_noticia_<%= @noticia.id.to_s %> %>").modal('remove');

@@ -1,0 +1,9 @@
+<% if Configuracao.last &&  Configuracao.last.google_anlytics %>
+    <%= Configuracao.try(:last).try(:google_anlytics).try(:html_safe)  %>
+<% end %>
+<% if Configuracao.last &&  Configuracao.last.google_search_console %>
+    <%= Configuracao.try(:last).try(:google_search_console).try(:html_safe)  %>
+<% end %>
+<% if Configuracao.last &&  Configuracao.last.adsence_client %>
+    <%= Configuracao.try(:last).try(:adsence_client).try(:html_safe) %>
+<% end %>
